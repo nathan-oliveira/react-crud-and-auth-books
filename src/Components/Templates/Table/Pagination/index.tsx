@@ -4,7 +4,7 @@ import './pagination.scss'
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLimit, usePage, useSearch } from 'Hooks/useQuery';
 
-const Pagination = ({ data, setPage, page, setLimit, limit, total, search, setDataTable }: any) => {
+const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, search, setDataTable }: any) => {
   const [qtdPage, setQtdPage] = React.useState(0);
   const [rowPages, setRowPages] = React.useState([]);
   const [optionsLimit, setOptionsLimit] = React.useState([10, 20, 30, 40]);
@@ -48,11 +48,16 @@ const Pagination = ({ data, setPage, page, setLimit, limit, total, search, setDa
     }
 
     rowPages()
-  }, [data, page, limit, total, setPage, setDataTable])
+  }, [data, page, limit, total, setPage, setDataTable, changePage])
 
   React.useEffect(() => {
-    function paginate() {
-      const limitValue = (!queryLimit || queryLimit === 0) ? optionsLimit[0] : (Number(queryLimit) >= optionsLimit[optionsLimit.length - 1] ? optionsLimit[optionsLimit.length - 1] : Number(queryLimit));
+    function setParams() {
+      let optionsLimits = optionsLimit;
+      if (limits && limits.length) {
+        setOptionsLimit(limits)
+        optionsLimits = limits;
+      }
+      const limitValue = (!queryLimit || queryLimit === 0) ? optionsLimits[0] : (Number(queryLimit) >= optionsLimits[optionsLimits.length - 1] ? optionsLimits[optionsLimits.length - 1] : Number(queryLimit));
       const pageValue = (!queryPage || queryPage === 0) ? 1 : (limitValue >= total ? 1 : (Number(queryPage) >= Math.ceil(total / limitValue) ? Math.ceil(total / limitValue) : Number(queryPage)));
       const paramsURL: any = { q: querySearch, page: `${pageValue}`, limit: `${limitValue}` };
       navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true });
@@ -60,8 +65,8 @@ const Pagination = ({ data, setPage, page, setLimit, limit, total, search, setDa
       setLimit(limitValue)
     }
   
-    paginate()
-  }, [queryPage, queryLimit]);
+    setParams()
+  }, [queryPage, queryLimit, optionsLimit, limits, total, querySearch, navigate, pathname, setPage, setLimit]);
 
   return (
     <div className="table__pagination">

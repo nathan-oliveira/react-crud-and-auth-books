@@ -1,7 +1,9 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+
 import useFetch from 'Hooks/useFetch'
+import { useSearch } from 'Hooks/useQuery';
 import { GET_BOOKS, DELETE_BOOK } from 'Services/api'
 
 import Error from 'Components/Helper/Error';
@@ -9,7 +11,6 @@ import Loading from 'Components/Helper/Loading';
 import NoRegistry from 'Components/Helper/NoRegistry';
 import Table from 'Components/Templates/Table';
 import Pagination from 'Components/Templates/Table/Pagination';
-import { useSearch } from 'Hooks/useQuery';
 
 const Listing = () => {
   const [page, setPage] = React.useState(1)
@@ -17,22 +18,21 @@ const Listing = () => {
   const [dataTable, setDataTable] = React.useState([])
 
   const querySearch = useSearch();
-
   const navigate = useNavigate();
 
   const { token } = useSelector((state: any) => state.user.data)
-  const { total, data, loading, error, request: requestGetAll } = useFetch()
+  const { total, data, loading, error, request } = useFetch()
   const { request: requestDelete } = useFetch()
 
   React.useEffect(() => {
     function find() {
       const { url, options } = GET_BOOKS(token)
       const params: any = { search: querySearch, page: `${page}`, limit: `${limit}` };
-      requestGetAll(`${url}?${new URLSearchParams(params).toString()}`, options);
+      request(`${url}?${new URLSearchParams(params).toString()}`, options);
     }
 
     find()
-  }, [page, limit, querySearch, token])
+  }, [page, limit, querySearch, token, request])
 
   async function deleteBook(id: string) {
     const confirm = window.confirm('Tem certeza que deseja deletar?');
@@ -43,7 +43,7 @@ const Listing = () => {
 
       if (response.ok) {
         const { url, options } = GET_BOOKS(token)
-        requestGetAll(url, options)
+        request(url, options)
       }
     }
   }
@@ -74,8 +74,6 @@ const Listing = () => {
             limit={limit}
             search={querySearch}
             setDataTable={setDataTable}
-            requestGetAll={requestGetAll}
-            fetchGet={GET_BOOKS}
           />
         </div>
       ) : (
