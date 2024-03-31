@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useFetch from 'Hooks/useFetch'
 import { GET_BOOKS, DELETE_BOOK } from 'Services/api'
 
@@ -9,7 +9,7 @@ import Loading from 'Components/Helper/Loading';
 import NoRegistry from 'Components/Helper/NoRegistry';
 import Table from 'Components/Templates/Table';
 import Pagination from 'Components/Templates/Table/Pagination';
-import { usePage, useSearch, useLimit } from 'Hooks/useQuery';
+import { useSearch } from 'Hooks/useQuery';
 
 const Listing = () => {
   const [page, setPage] = React.useState(1)
@@ -17,43 +17,17 @@ const Listing = () => {
   const [dataTable, setDataTable] = React.useState([])
 
   const querySearch = useSearch();
-  const queryPage = usePage();
-  const queryLimit = useLimit();
 
   const navigate = useNavigate();
-  const { pathname } = useLocation();
 
   const { token } = useSelector((state: any) => state.user.data)
-  const { total, data, loading, error, request } = useFetch()
+  const { total, data, loading, error, request: requestGetAll } = useFetch()
   const { request: requestDelete } = useFetch()
 
   React.useEffect(() => {
     const { url, options } = GET_BOOKS(token)
     const params: any = { search: querySearch, page: `${page}`, limit: `${limit}` };
-    const paramsURL: any = { q: querySearch, page: `${page}`, limit: `${limit}` };
-    if (querySearch) params.search = querySearch;
-
-    if (queryPage) {
-      params.page = queryPage;
-      paramsURL.page = queryPage;
-      setPage(Number(queryPage))
-    } else {
-      params.page = page;
-      paramsURL.page = page;
-    }
-
-    if (queryLimit) {
-      params.limit = queryLimit;
-      paramsURL.limit = queryLimit;
-      setLimit(Number(queryLimit))
-    } else {
-      params.limit = limit;
-      paramsURL.limit = limit;
-    }
-    
-    navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true })
-    request(`${url}?${new URLSearchParams(params).toString()}`, options);
-    console.log('hmm')
+    requestGetAll(`${url}?${new URLSearchParams(params).toString()}`, options);
   }, [page, limit, querySearch, token])
 
   async function deleteBook(id: string) {
@@ -65,7 +39,7 @@ const Listing = () => {
 
       if (response.ok) {
         const { url, options } = GET_BOOKS(token)
-        request(url, options)
+        requestGetAll(url, options)
       }
     }
   }
@@ -96,6 +70,8 @@ const Listing = () => {
             limit={limit}
             search={querySearch}
             setDataTable={setDataTable}
+            requestGetAll={requestGetAll}
+            fetchGet={GET_BOOKS}
           />
         </div>
       ) : (
