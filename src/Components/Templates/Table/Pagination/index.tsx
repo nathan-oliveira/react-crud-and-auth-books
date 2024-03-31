@@ -20,13 +20,13 @@ const Pagination = ({ data, setPage, page, setLimit, limit, total, search, setDa
     const paramsURL: any = { q: querySearch, page: `${queryPage}`, limit: `${limit}` };
     navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true })
     setLimit(limit);
-  }, [querySearch, queryPage, navigate, pathname, setLimit])
+  }, [queryPage])
 
   const changePage = React.useCallback((page: number) => {
     const paramsURL: any = { q: querySearch, page: `${page}`, limit: `${queryLimit}` };
     navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true })
     setPage(page)
-  }, [querySearch, queryLimit, navigate, pathname, setPage]);
+  }, [queryLimit]);
 
   const incPage: any = React.useCallback(() => page < qtdPage && changePage(page + 1), [page, qtdPage, changePage]);
   const descPage: any = React.useCallback(() => page > 1 && changePage(page - 1), [page, changePage])

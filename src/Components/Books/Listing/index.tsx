@@ -53,9 +53,8 @@ const Listing = () => {
     
     navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true })
     request(`${url}?${new URLSearchParams(params).toString()}`, options);
-    
-    console.log('hm')
-  }, [page, limit, querySearch, token, queryPage, queryLimit, navigate, pathname, request])
+    console.log('hmm')
+  }, [page, limit, querySearch, token])
 
   async function deleteBook(id: string) {
     const confirm = window.confirm('Tem certeza que deseja deletar?');
