@@ -1,0 +1,55 @@
+.logo li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo li a {
+  color: white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-left: 1px;
+  margin-top: 11px;
+}
+.logo li a span {
+  padding: 11px 20px;
+}
+.logo li .logo__link {
+  transition: 0.5s;
+}
+.logo li svg {
+  color: white;
+  width: 29px !important;
+  height: 29px !important;
+  margin-right: 14px;
+}
+.logo li svg.svg_menu_offscreen {
+  margin-left: 16px;
+  margin-top: 11px;
+  transform: rotate(90deg) !important;
+}
+.logo li svg.svg_menu_screen {
+  margin-left: 16px;
+  margin-top: 11px;
+  transform: rotate(270deg) !important;
+}
+.logo li svg:hover {
+  cursor: pointer;
+}
+
+.logo_close_web {
+  background: #2b80ef;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 60px;
+  height: 52.4px;
+  transition: 0.5s;
+}
+
+.logo_open_web {
+  background: #2b80ef;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  width: 256px !important;
+  transition: 0.5s;
+  height: 52.4px;
+}/*# sourceMappingURL=logo.css.map */

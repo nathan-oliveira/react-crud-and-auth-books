@@ -1,0 +1,44 @@
+.sidenav {
+  width: 256px;
+  grid-area: sidenav;
+  background: white;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  transition: width 0.5s;
+  z-index: 1;
+}
+
+.sidenav__hide {
+  display: none !important;
+}
+
+.sidenav__close {
+  width: 60px;
+  grid-area: sidenav;
+  margin-bottom: 0px !important;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  background: white;
+  transition: width 0.5s;
+  z-index: 1;
+  margin: 10px;
+  border-radius: 20px;
+}
+
+.sidenav .sidenav__content {
+  position: absolute;
+  width: 255px;
+}
+
+.sidenav__close .sidenav__content {
+  position: absolute;
+  width: 60px;
+}
+
+.sidenav__close .sidenav__content:hover {
+  width: 255px !important;
+}
+
+@media (max-width: 800px) {
+  .sidenav {
+    display: none;
+  }
+}/*# sourceMappingURL=sidenav.css.map */

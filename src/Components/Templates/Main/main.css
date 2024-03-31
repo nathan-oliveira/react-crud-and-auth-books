@@ -1,0 +1,31 @@
+.content_main {
+  grid-area: content !important;
+  height: calc(var(--vh-offset) - 75px) !important;
+  padding: var(--padding-global);
+  z-index: 3;
+  overflow-y: overlay;
+  overflow-x: hidden;
+}
+
+.content__login__center {
+  justify-content: center;
+  display: flex;
+  overflow-y: hidden;
+}
+
+.content_main::-webkit-scrollbar {
+  border-radius: 14px;
+  width: 7px;
+  height: 7px;
+}
+
+.content_main::-webkit-scrollbar-track-piece {
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.07);
+}
+
+.content_main::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  background-color: #292929;
+  border-radius: 10px;
+}/*# sourceMappingURL=main.css.map */

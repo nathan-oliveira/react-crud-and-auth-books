@@ -1,0 +1,128 @@
+.nav {
+  grid-area: nav;
+  padding: var(--padding-global);
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.30);
+  z-index: 2;
+  background: #2b80ef;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 53px !important;
+
+  .navbar_header {
+    display: flex;
+
+    span.navbar_header_info {
+      margin-left: 20px;
+      color: #fff;
+      font-size: 1.125rem;
+      margin-top: 1px;
+    }
+  }
+
+  .navbar__items {
+    display: flex;
+    
+    li {
+      margin-left: 0.6rem;
+      cursor: pointer;
+    }
+
+    li.navbar__items_search {
+      background: #fff;
+      display: flex;
+      padding: 7px 0px 7px 13px;
+      border-radius: 15px;
+      min-width: 220px;
+      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+      cursor: text;
+
+      svg {
+        margin-left: 5px;
+        width: 16px;
+      }
+
+      input.navbar__items_search_input {
+        border: none;
+      }
+    }
+  }
+
+  .navbar__icon {
+    text-decoration: none;
+    outline: none;
+    border: none !important;
+    background: transparent;
+    cursor: pointer;
+    // height: 20px;
+  }
+
+  .navbar__icon::after {
+    cursor: pointer;
+    content: '';
+    display: block;
+    width: 1.4rem;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 6px #fff, 0 -6px #fff !important;
+    transition: 0.2s;
+  }
+
+  .navbar__icon:focus,
+  .navbar__icon:hover,
+  .navbar__icon {
+    outline: none;
+  }
+
+  .navbar__icon___active::after {
+    transform: rotate(90deg);
+    width: 4px;
+    height: 4px;
+    box-shadow: 0 8px currentColor, 0 -8px currentColor;
+    margin-left: 10px;
+  }
+
+  .navbar__title {
+    display: flex;
+  }
+}
+
+@media (max-width: 800px) {
+  .navbar__methods {
+    display: none;
+  }
+
+  // .navbar {
+  //   flex-direction: row-reverse;
+  // }
+}
+
+.navbar__mobile {
+  display: block;
+  position: absolute;
+  top: 70px;
+  left: 25px;
+  padding: 0 1rem;
+  background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-radius: 0.2rem;
+  transform: translateX(-10px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar__mobile__active {
+  transition: 0.3s;
+  transition: initial;
+  opacity: 1;
+  pointer-events: initial;
+  z-index: 100;
+}
+
+.navbar__mobile__disabled {
+  display: none;
+}
