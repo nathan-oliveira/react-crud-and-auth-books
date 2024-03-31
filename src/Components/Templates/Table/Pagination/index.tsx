@@ -30,15 +30,6 @@ const Pagination = ({ data, setPage, page, setLimit, limit, total, search, setDa
     setPage(value)
   }, [limit, navigate, pathname, querySearch, setPage]);
 
-  React.useEffect(() => {
-    const pageValue = (!queryPage || queryPage === '0') ? 1 : Number(queryPage);
-    const limitValue = (!queryLimit || queryLimit === '0') ? optionsLimit[0] : Number(queryLimit);
-    const paramsURL: any = { q: querySearch, page: `${pageValue}`, limit: `${limitValue}` };
-    navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true });
-    setPage(pageValue)
-    setLimit(limitValue)
-  }, [queryPage, queryLimit]);
-
   const incPage: any = React.useCallback(() => page < qtdPage && changePage(page + 1), [page, qtdPage, changePage]);
   const descPage: any = React.useCallback(() => page > 1 && changePage(page - 1), [page, changePage])
 
@@ -58,6 +49,19 @@ const Pagination = ({ data, setPage, page, setLimit, limit, total, search, setDa
 
     rowPages()
   }, [data, page, limit, total, setPage, setDataTable])
+
+  React.useEffect(() => {
+    function paginate() {
+      const limitValue = (!queryLimit || queryLimit === 0) ? optionsLimit[0] : (Number(queryLimit) >= optionsLimit[optionsLimit.length - 1] ? optionsLimit[optionsLimit.length - 1] : Number(queryLimit));
+      const pageValue = (!queryPage || queryPage === 0) ? 1 : (limitValue >= total ? 1 : (Number(queryPage) >= Math.ceil(total / limitValue) ? Math.ceil(total / limitValue) : Number(queryPage)));
+      const paramsURL: any = { q: querySearch, page: `${pageValue}`, limit: `${limitValue}` };
+      navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true });
+      setPage(pageValue)
+      setLimit(limitValue)
+    }
+  
+    paginate()
+  }, [queryPage, queryLimit]);
 
   return (
     <div className="table__pagination">

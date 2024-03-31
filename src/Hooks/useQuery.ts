@@ -12,14 +12,14 @@ export const useSearch = (): string => {
   return params.get('q') ?? '';
 }
 
-export const usePage = (): string => {
+export const usePage = (): number => {
   const params = useQuery();
-  return params.get('page') ?? '';
+  return Number(params.get('page') ?? 0);
 }
 
-export const useLimit = (): string => {
+export const useLimit = (): number => {
   const params = useQuery();
-  return params.get('limit') ?? '';
+  return Number(params.get('limit') ?? 0);
 }
 
 export default useQuery;

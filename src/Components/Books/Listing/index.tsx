@@ -25,9 +25,13 @@ const Listing = () => {
   const { request: requestDelete } = useFetch()
 
   React.useEffect(() => {
-    const { url, options } = GET_BOOKS(token)
-    const params: any = { search: querySearch, page: `${page}`, limit: `${limit}` };
-    requestGetAll(`${url}?${new URLSearchParams(params).toString()}`, options);
+    function find() {
+      const { url, options } = GET_BOOKS(token)
+      const params: any = { search: querySearch, page: `${page}`, limit: `${limit}` };
+      requestGetAll(`${url}?${new URLSearchParams(params).toString()}`, options);
+    }
+
+    find()
   }, [page, limit, querySearch, token])
 
   async function deleteBook(id: string) {
