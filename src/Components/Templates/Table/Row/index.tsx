@@ -64,6 +64,16 @@ const Row = ({ children, expandChildren, record, getPost, deletePost, head, isEx
     resizeOffsetRows();
 
     setTimeout(() => { resizeOffsetRows(); }, 500)
+
+    window.addEventListener('resize', () => { 
+      setTimeout(() => { resizeOffsetRows(); }, 500)
+    });
+
+    return () => {
+      window.removeEventListener('resize', () => { 
+        setTimeout(() => { resizeOffsetRows(); }, 500)
+      });
+    };
   }, [expand, menu, resizeOffsetRows]);
 
   function expandRow() {
@@ -97,9 +107,10 @@ const Row = ({ children, expandChildren, record, getPost, deletePost, head, isEx
               </button>
             </div>
           </td>
-          {expand && expandChildren && childrenToRender}
+
+          {(expand && expandChildren) && childrenToRender}
         </tr>
-        {(expand && expandChildren && childrenToRender) && (
+        {(expand && expandChildren) && (
           <tr className="table__row table__row_expanded_invisible" key={record.id + '-expanded-invisible'}>
             <td colSpan={indexRow + 1}>&nbsp;</td>
           </tr>
