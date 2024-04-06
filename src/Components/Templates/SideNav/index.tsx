@@ -13,7 +13,7 @@ const SideNav = () => {
 
   if (mobile) return null;
   return (
-    <aside className={`animeLeft ${!sideBar ? 'sidenav__hide ' : ''}${!menu ? 'sidenav__close' : 'sidenav'}`}>
+    <aside className={`${!sideBar ? 'sidenav__hide ' : 'animeLeft'} ${!menu ? 'sidenav__close' : 'sidenav'}`}>
       <nav className="sidenav__content">
         <Logo />
         <NavItem />

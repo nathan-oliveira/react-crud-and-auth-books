@@ -27,8 +27,6 @@ const Router = () => {
       </Route>
 
       <Route path="*" element={<NotFound />} />
-
-      {/* not found router */}
     </Routes>
   )
 }
