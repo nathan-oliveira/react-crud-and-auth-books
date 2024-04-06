@@ -1,7 +1,7 @@
 .content_main {
   grid-area: content !important;
   height: calc(var(--vh-offset) - 75px) !important;
-  padding: var(--padding-global);
+  padding: 17px 15px;
   z-index: 3;
   overflow-y: overlay;
   overflow-x: hidden;
@@ -21,11 +21,11 @@
 
 .content_main::-webkit-scrollbar-track-piece {
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.07);
+  // background-color: #bdbcbc;
 }
 
 .content_main::-webkit-scrollbar-thumb:vertical {
   height: 5px;
-  background-color: #292929;
+  background-color: #cfcfcf;
   border-radius: 10px;
 }

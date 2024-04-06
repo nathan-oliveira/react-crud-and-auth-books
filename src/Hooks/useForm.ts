@@ -25,9 +25,13 @@ const useForm = (type: any = null): any => {
   const [value, setValue] = React.useState(null);
   const [error, setError] = React.useState(null);
 
-  function validate(target: any) {
-    if (type === false) return true;
-    if (target?.value && target?.value.length === 0) {
+  function validate(input: any) {
+    const target = { 
+      value: type === 'file' ? input.value : input,  
+      type: type === 'file' ? input.type : null,
+    };
+    
+    if (target.value === null || target.value.length === 0) {
       setError('Preencha um valor.' as any);
       return false;
     } else if (type === 'file' && types.file && !types.file.mimeTypes.includes(target?.type)) {

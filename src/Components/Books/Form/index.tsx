@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import useForm from 'Hooks/useForm'
@@ -15,6 +15,8 @@ import RowButton from 'Components/Templates/Form/RowButton'
 import If from 'Components/Templates/Operator/If'
 import Loading from 'Components/Helper/Loading'
 import Error from 'Components/Helper/Error'
+
+import { FaSave } from "react-icons/fa";
 
 const Form = (): any => {
   const { id } = useParams();
@@ -93,10 +95,16 @@ const Form = (): any => {
       </Row>
       <RowButton>
         <If test={loading}>
-          <Button disabled>{id ? 'Atualizando...' : 'Cadastrando...'}</Button>
+          <Button color="green" disabled>
+            <FaSave />
+            {id ? 'Atualizando...' : 'Cadastrando...'}
+          </Button>
         </If>
         <If test={!loading}>
-          <Button>{id ? 'Atualizar' : 'Cadastrar'}</Button>
+          <Button color="green" className="button__save">
+            <FaSave />
+            Salvar
+          </Button>
         </If>
       </RowButton>
     </form>

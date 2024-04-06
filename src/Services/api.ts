@@ -53,7 +53,6 @@ export function VALIDATE_TOKEN(token: any) {
 
 // profile
 export function GET_PROFILE(token: any) {
-  console.log('GET_PROFILE')
   return {
     url: `${URL_API}/profile`,
     options: {
@@ -66,7 +65,6 @@ export function GET_PROFILE(token: any) {
 }
 
 export function PUT_PROFILE(formData: any, token: any) {
-  console.log('PUT_PROFILE')
   return {
     url: `${URL_API}/profile`,
     options: {
@@ -81,7 +79,6 @@ export function PUT_PROFILE(formData: any, token: any) {
 }
 
 export function PATCH_PROFILE(formData: any, token: any) {
-  console.log('PATCH_PROFILE')
   return {
     url: `${URL_API}/profile`,
     options: {
@@ -96,7 +93,6 @@ export function PATCH_PROFILE(formData: any, token: any) {
 }
 
 export function PATCH_PROFILE_PHOTO({ file, token }: any) {
-  console.log('PATCH_PROFILE_PHOTO')
   const formData = new FormData();
   formData.append('file', file);
 
@@ -113,7 +109,6 @@ export function PATCH_PROFILE_PHOTO({ file, token }: any) {
 }
 
 export function GET_PROFILE_PHOTO(token: any) {
-  console.log('GET_PROFILE_PHOTO')
   return {
     url: `${URL_API}/profile/photo`,
     options: {

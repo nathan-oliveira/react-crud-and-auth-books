@@ -9,17 +9,27 @@
   }
 }
 
+.navbar__item.navbar__item__open {
+  .navbar__item_content {
+    a:hover,
+    div.nav__item_dropdown:hover,
+    div.nav__item_dropdown_list:hover {
+      background: #f7f6fbd1;
+    }
+  }
+}
+
 .navbar__item_profile_close {
   position: fixed; 
   bottom: 0%;
   // background: linear-gradient(180deg, #1e68cca1 40%, #1e68cca1);
-  background: #2b80ef;
+  background: #208de4;
   color: #fff !important;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  height: 70px !important;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  height: 64px !important;
   width: 60px;
-  transition: 0.5s;
+  transition: width 0.5s;
 }
 
 .navbar__item_profile_open {
@@ -27,15 +37,16 @@
   bottom: 0%; 
   // background: linear-gradient(180deg, #1e68cca1 40%, #1e68cca1);
   color: #fff !important;
-  background: #2b80ef;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  height: 70px !important;
+  // background: #208de4;
+  background: linear-gradient(90deg, #1a76bf 20%, #208de4 100%);
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  height: 64px !important;
   width: 256px;
-  transition: 0.5s;
+  transition: width 0.5s;
 
   .navbar__item_profile_text {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-left: 16px;
     transition: 1s;
   }
@@ -111,7 +122,7 @@ svg.chevron-up {
         padding: 0px;
 
         span {
-          margin: 5px 10px !important;
+          margin: 4px 14px !important;
         }
       }
     } 
@@ -146,7 +157,7 @@ svg.chevron-up {
     }
 
     div.nav__item_dropdown_list {
-      background: #f7f6fb;
+      background: #f7f6fb2e;
       padding: 0 0 0 51px;
       width: 256px;
 
@@ -154,7 +165,7 @@ svg.chevron-up {
         padding: 0px;
 
         span {
-          margin: 6px 20px !important;
+          margin: 4px 20px !important;
         }
       }
     }
@@ -168,11 +179,10 @@ svg.chevron-up {
 .navbar__item {
   a,
   div.nav__item_dropdown {
-    // color: white;
     color: black;
 
     span {
-      font-size: 1.1rem;
+      font-size: 1rem;
       margin-left: 10px;
     }
   }

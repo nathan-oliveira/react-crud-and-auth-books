@@ -58,7 +58,7 @@ const NavItem = ({ mobile, changeMenuMobile }: any) => {
 
   // mobile
   return (
-    <ul className={`${!mobile ? 'navbar__item' : 'navbar__item__mobile'}`}>
+    <ul className={`${!mobile ? 'navbar__item' : 'navbar__item__mobile'}${menu ? ' navbar__item__open': ''}`}>
       <If test={data}>
         <div className="navbar__item_content">
           { rowItems }

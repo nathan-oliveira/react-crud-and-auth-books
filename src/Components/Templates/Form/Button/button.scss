@@ -2,13 +2,27 @@
   font-size: 1rem;
   cursor: pointer;
   border: none;
-  border-radius: 0.2rem;
   padding: .7rem;
-  background: #2b80ef;
+  background: #208de4;
   color: white;
   min-width: 8rem;
   box-sizing: border-box;
   transition: .1s;
+  border-radius: 22px;
+  padding: 7px 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 14px;
+    margin-right: 6px;
+  }
+}
+
+.button.button__green {
+  background: #28a745 !important;
 }
 
 .button:disabled {
@@ -24,4 +38,8 @@
   transition: .1s;
   background: #297ae4;
   transform: scale(1.02);
+}
+
+.button.button__green:hover {
+  background: #28a745 !important;
 }

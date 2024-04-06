@@ -1,9 +1,10 @@
 import React from 'react'
 import './button.scss'
 
-const Button = ({ children, ...props }: any) => {
+const Button = ({ children, color, ...props }: any) => {
+  // button__green
   return (
-    <button {...props} className="button">
+    <button {...props} className={`button${color === 'green' ? ' button__green' : ''}`}>
       {children}
     </button>
   )

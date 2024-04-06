@@ -13,9 +13,9 @@
   bottom: 0%;
   background: #2b80ef;
   color: #fff !important;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  height: 70px !important;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  height: 64px !important;
   width: 60px;
   transition: 0.5s;
 }
@@ -25,14 +25,14 @@
   bottom: 0%;
   color: #fff !important;
   background: #2b80ef;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  height: 70px !important;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  height: 64px !important;
   width: 256px;
   transition: 0.5s;
 }
 .navbar__item_profile_open .navbar__item_profile_text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-left: 16px;
   transition: 1s;
 }
@@ -127,7 +127,7 @@ svg.chevron-up {
   margin-left: 17px;
 }
 .navbar__item div.nav__item_dropdown div.nav__item_dropdown_list {
-  background: #f7f6fb;
+  background: rgba(247, 246, 251, 0.8196078431);
   padding: 0 0 0 51px;
   width: 256px;
 }
@@ -147,7 +147,7 @@ svg.chevron-up {
 }
 .navbar__item a span,
 .navbar__item div.nav__item_dropdown span {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-left: 10px;
 }
 

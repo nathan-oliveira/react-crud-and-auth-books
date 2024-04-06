@@ -17,7 +17,7 @@
 }
 
 .card__header {
-  border-top: 4px solid #208de4;
+  border-top: 4px solid #2b80ef;
   padding: 2.2% 6%;
   background: #fff;
 }
@@ -47,34 +47,29 @@
   .card__header__title:after {
     width: 24%;
   }
-
   .card__header__title2:after {
     width: 39%;
   }
-
   .card__header__title,
   .card__header__title2 {
     font-size: 25px;
   }
 }
-
 .card__main {
   padding: 0% 6% 4% 6%;
   background: #fff;
   height: 85%;
-
-  .form {
-    margin-top: 14px;
-    margin-bottom: 14px;
-
-    .row.row__reverse {
-      margin-top: 10px;
-    }
-  }
+}
+.card__main .form {
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+.card__main .form .row.row__reverse {
+  margin-top: 10px;
 }
 
 ._card__main__error {
   color: rgb(161, 8, 8);
   text-align: center;
   margin-bottom: 0.5rem;
-}
+}/*# sourceMappingURL=auth.css.map */

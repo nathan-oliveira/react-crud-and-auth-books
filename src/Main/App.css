@@ -2,6 +2,7 @@
 @import url("../Assets/fonts/Spectral.css");
 :root {
   --padding-global: 15px 20px;
+  --padding-content: 15px 20px;
   --vh-offset: 0;
 }
 
@@ -66,7 +67,7 @@ select {
 aside.sidenav,
 header.nav {
   margin: 10px 10px 0px 10px;
-  border-radius: 20px;
+  border-radius: 30px;
 }
 
 .logo {
@@ -163,40 +164,6 @@ header.nav {
   width: 12%;
 }
 
-.table__col1 {
-  display: none;
-}
-
-.table__col2 {
-  max-width: 20%;
-}
-
-td.table__col2 {
-  border-radius: 0 0 0 4px !important;
-}
-
-th.table__col2 {
-  border-radius: 4px 0 0 0;
-}
-
-.table__col3 {
-  width: 25%;
-}
-
-.table__col4 {
-  width: 16%;
-}
-
-@media (max-width: 1443px) {
-  .table__col4 {
-    display: none;
-  }
-}
-@media (max-width: 1080px) {
-  .table__col3 {
-    display: none;
-  }
-}
 .empty__table {
   align-items: center;
   justify-content: center;

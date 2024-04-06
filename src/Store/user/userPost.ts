@@ -19,7 +19,7 @@ export const userLogin = (dataForm: any): any => async (dispatch: any) => {
   }
 }
 
-export const userLogout = () => async (dispatch: any) => {
+export const userLogout = (): any => async (dispatch: any) => {
   dispatch(resetTokenState({
     token: null,
     name: '',

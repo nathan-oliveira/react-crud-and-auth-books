@@ -16,6 +16,7 @@ const Listing = () => {
   const [page, setPage] = React.useState(1)
   const [limit, setLimit] = React.useState(10)
   const [dataTable, setDataTable] = React.useState([])
+  const [orderBy, setOrderBy] = React.useState({ column: 'title', order: 'DESC' })
 
   const querySearch = useSearch();
   const navigate = useNavigate();
@@ -27,12 +28,12 @@ const Listing = () => {
   React.useEffect(() => {
     function find() {
       const { url, options } = GET_BOOKS(token)
-      const params: any = { search: querySearch, page: `${page}`, limit: `${limit}` };
+      const params: any = { search: querySearch, page: page.toString(), limit: limit.toString(), orderBy: JSON.stringify(orderBy) };
       request(`${url}?${new URLSearchParams(params).toString()}`, options);
     }
 
     find()
-  }, [page, limit, querySearch, token, request])
+  }, [page, limit, querySearch, token, orderBy, request])
 
   async function deleteBook(id: string) {
     const confirm = window.confirm('Tem certeza que deseja deletar?');
@@ -52,18 +53,23 @@ const Listing = () => {
     navigate(`/books/edit/${id}`)
   }
 
-  if (loading) return <Loading />
+  if (data === null && loading) return <Loading />
   if (error) return <Error error={error} />
   return (
     <React.Fragment>
       {(data !== null) ? (
-        <div className="animeLeft">
+        <div className="animeLeft table_wrapper">
           <Table
             dataTable={dataTable}
             loading={loading}
             deletePost={deleteBook}
             getPost={getBook}
-            head={{ title: 'Título', description: 'Descrição'}}
+            setOrderBy={setOrderBy}
+            orderBy={orderBy}
+            head={[
+              { key: 'title', title: 'Título' },
+              { key: 'description', title: 'Descrição' },
+            ]}
           />
           <Pagination
             data={data}

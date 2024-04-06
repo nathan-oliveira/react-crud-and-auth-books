@@ -3,7 +3,8 @@
   padding: var(--padding-global);
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.30);
   z-index: 2;
-  background: #2b80ef;
+  // background: #208de4;
+  background: linear-gradient(90deg, #208de4 50%, #1a76bf 100%);
 }
 
 .navbar {

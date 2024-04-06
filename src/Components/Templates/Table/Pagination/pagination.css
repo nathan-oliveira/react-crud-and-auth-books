@@ -1,6 +1,7 @@
 .table__pagination {
-  margin-top: 1rem;
+  padding: 17px 15px;
   align-items: center;
+  font-size: 0.9rem;
 }
 
 .table__pagination,
@@ -10,12 +11,10 @@
 }
 
 .page__button {
-  font-size: 18px;
   padding: 0px 12px 0px 12px;
 }
 
 .page__link {
-  font-size: 18px;
   padding: 1px 15px 0px 15px;
 }
 

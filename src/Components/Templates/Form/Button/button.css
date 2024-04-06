@@ -1,0 +1,28 @@
+.button {
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.2rem;
+  padding: 0.7rem;
+  background: #2b80ef;
+  color: white;
+  min-width: 8rem;
+  box-sizing: border-box;
+  transition: 0.1s;
+  border-radius: 22px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.button:disabled:hover {
+  transform: scale(1);
+}
+
+.button:hover {
+  transition: 0.1s;
+  background: #297ae4;
+  transform: scale(1.02);
+}/*# sourceMappingURL=button.css.map */

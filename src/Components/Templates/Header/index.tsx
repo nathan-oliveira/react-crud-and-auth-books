@@ -11,11 +11,13 @@ import NavItem from 'Components/Templates/NavItem'
 import If from 'Components/Templates/Operator/If'
 
 import { ReactComponent as SearchIcon } from 'Assets/svg/search.svg'
+import { SidebarData } from 'Main/SidebarData'
 // import Dropdown from 'Components/Templates/DropdownItem'
 
 const Header = () => {
   const mobile = useMedia('(max-width: 800px)');
   const [mobileMenu, setMobileMenu] = React.useState(false);
+  const [headerInfo, setHeaderInfo] = React.useState('');
   
   const { sideBar } = useSelector((state: any) => state.menu);
   const refInputSearch: any = useRef(null);
@@ -25,12 +27,18 @@ const Header = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  React.useEffect(() => {
+    const currentPage = SidebarData.find((side: any) => side.path === pathname);
+    if (currentPage) setHeaderInfo(currentPage.title)
+    else setHeaderInfo('');
+  }, [pathname])
+
   const changeMenuMobile = () => setMobileMenu(!mobileMenu);
   const changeMenuSideBar = () => dispatch(toggleSideBar(!sideBar));
 
   function logout() {
-    navigate('/login')
     // dispatch(userLogout())
+    navigate('/login')
   }
   
   function handleSearchClick() {
@@ -58,7 +66,7 @@ const Header = () => {
 
           <If test={!mobile}>
             <button onClick={changeMenuSideBar} className="navbar__icon"></button>
-            <span className="navbar_header_info">Teste</span>
+            <span className="navbar_header_info">{headerInfo}</span>
           </If>
         </div>
         <ul className="navbar__items">

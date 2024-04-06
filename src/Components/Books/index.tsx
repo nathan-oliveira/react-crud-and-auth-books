@@ -3,7 +3,6 @@ import './books.scss'
 
 import { Routes, Route } from 'react-router-dom'
 
-import Breadcrumb from 'Components/Templates/Breadcrumb'
 import HeaderMenu from 'Components/Templates/HeaderMenu'
 import Head from 'Components/Helper/Head'
 import NotFound from 'Components/Helper/NotFound'
@@ -15,7 +14,6 @@ const Books = () => {
   return (
     <section>
       <Head title="Livros" />
-      <Breadcrumb title="Livros" path="/books" />
 
       <div className="content__page">
         <HeaderMenu path="/books" />
