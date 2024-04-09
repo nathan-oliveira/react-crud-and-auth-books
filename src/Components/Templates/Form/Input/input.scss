@@ -63,3 +63,14 @@
 .input-text-error {
   border-color: var(--clr-accent-300) !important;
 }
+
+.input-wrapper__password svg {
+  float: inline-end;
+  margin-top: 10px;
+  margin-right: 10px;
+  position: relative;
+}
+
+.input-wrapper__password input.input {
+  padding-right: 33px !important;
+}

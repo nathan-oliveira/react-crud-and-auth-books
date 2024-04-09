@@ -15,6 +15,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
   const [qtdPage, setQtdPage] = React.useState(0);
   const [rowPages, setRowPages] = React.useState([]);
   const [optionsLimit, setOptionsLimit] = React.useState([10, 20, 30, 40]);
+  const [intervalPage, setIntervalPage] = React.useState('');
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -23,11 +24,19 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
   const queryPage = usePage();
   const queryLimit = useLimit();
 
+  const  calculatePageInterval = React.useCallback((currentPage: number, totalRecords: number, limitPerPage: number) => {
+    const start = (currentPage - 1) * limitPerPage + 1;
+    let end = currentPage * limitPerPage;
+    if (end > totalRecords) end = totalRecords;
+    setTimeout(() => setIntervalPage(`${start} - ${end} de ${totalRecords}`), 200);
+  }, []);
+
   const changeLimit = React.useCallback((limitValue: number) => {
     const value = limitValue === 0 ? optionsLimit[0] : limitValue;
     const paramsURL: any = { q: querySearch, page: `${page}`, limit: `${value}` };
     navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true })
     setLimit(value);
+    calculatePageInterval(page, total, limit)
   }, [navigate, optionsLimit, page, pathname, querySearch, setLimit]);
 
   const changePage = React.useCallback((pageValue: number) => {
@@ -35,7 +44,9 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
     const paramsURL: any = { q: querySearch, page: `${value}`, limit: `${limit}` };
     navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true })
     setPage(value)
+    calculatePageInterval(page, total, limit)
   }, [limit, navigate, pathname, querySearch, setPage]);
+
 
   const incPage: any = React.useCallback(() => page < qtdPage && changePage(page + 1), [page, qtdPage, changePage]);
   const descPage: any = React.useCallback(() => page > 1 && changePage(page - 1), [page, changePage])
@@ -52,6 +63,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
       setQtdPage(numberOfPages)
       setRowPages(arrayPages)
       setDataTable(data)
+      calculatePageInterval(page, total, limit)
     }
 
     rowPages()
@@ -70,6 +82,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
       navigate(`${pathname}?${new URLSearchParams(paramsURL).toString()}`, { replace: true });
       setPage(pageValue)
       setLimit(limitValue)
+      calculatePageInterval(page, total, limit)
     }
   
     setParams()
@@ -94,35 +107,63 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
           </div>
         )}
       </ul>
-      <ul className="total">
-        {page} - {limit} de {qtdPage}
-      </ul>
+      <ul className="total">{intervalPage}</ul>
       <If test={!!oldPaginate}>
         <ul className="pagination">
-          <li onClick={() => descPage(page)} className="page__button">&#8678;</li>
+          <li className="page__button"
+            onClick={() => {
+              descPage(page);
+              calculatePageInterval(page, total, limit);
+            }}
+          >&#8678;</li>
           {search === '' ? (
             rowPages
           ) : (
               <li className="page__link page__link__active">1</li>
             )}
-          <li onClick={() => incPage(page)} className="page__button">&#8680;</li>
+          <li className="page__button"
+            onClick={() => {
+              incPage(page);
+              calculatePageInterval(page, total, limit);
+            }} 
+          >&#8680;</li>
         </ul>
       </If>
       <If test={!oldPaginate}>
         <ul className="pagination pagination__new">
-          <li className="pagination__new__pad" onClick={() => changePage(1)}>
+          <li className="pagination__new__pad" 
+            onClick={() => {
+              changePage(1);
+              calculatePageInterval(page, total, limit);
+            }}
+          >
             <TbChevronLeftPipe className="pagination__icons" />
           </li>
 
-          <li className="pagination__new__pad" onClick={() => descPage(page)}>
+          <li className="pagination__new__pad" 
+            onClick={() => {
+              descPage(page);
+              calculatePageInterval(page, total, limit);
+            }}
+          >
             <TbChevronLeft className="pagination__icons" />
           </li>
 
-          <li className="pagination__new__pad" onClick={() => incPage(page)}>
+          <li className="pagination__new__pad" 
+            onClick={() => {
+              incPage(page);
+              calculatePageInterval(page, total, limit);
+            }}
+          >
             <TbChevronRight className="pagination__icons" />
           </li>
 
-          <li onClick={() => changePage(qtdPage)}>
+          <li 
+            onClick={() => {
+              changePage(qtdPage);
+              calculatePageInterval(page, total, limit);
+            }}
+          >
             <TbChevronRightPipe className="pagination__icons" />
           </li>
         </ul>

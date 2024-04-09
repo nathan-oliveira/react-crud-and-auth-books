@@ -25,11 +25,11 @@ const Form = ({ login, setLogin, setError }: any) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state: any) => state.user)
-  const { error: errorToken } = useSelector((state: any) => state.user) // data: dataToken, 
+  const { error: errorToken } = useSelector((state: any) => state.user)
 
   React.useEffect(() => {
     setError(errorToken);
-  }, [errorToken, setError]) // setError
+  }, [errorToken, setError])
 
   async function handleSubmit(event: any) {
     event.preventDefault();

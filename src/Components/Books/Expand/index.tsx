@@ -5,7 +5,6 @@ const BookExpand = ({ record }: any) => {
   //   console.log(record)
   // }, []);
 
-  // Use data aqui
   return (
     <form>
       { record.id }

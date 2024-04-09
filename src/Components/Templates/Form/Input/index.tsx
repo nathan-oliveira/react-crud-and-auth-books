@@ -1,11 +1,26 @@
 import React from 'react'
 import './input.scss'
 
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
+import If from 'Components/Templates/Operator/If';
+
 const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) => {
+  const [typeInput, setTypeInput] = React.useState('text');
+  const [eyeText, setEyeText] = React.useState(true);
+
+  React.useEffect(() => {
+    setTypeInput(type);
+  }, [type]);
+
+  function showPassword() {
+    setEyeText((eye) => !eye);
+  }
+
   return (
-    <div className="input-wrapper">
+    <div className={`input-wrapper${type === 'password' ? ' input-wrapper__password' : ''}`}>
       <input 
-        type={type} 
+        type={type === 'password' ? (eyeText ? 'password' : 'text') : typeInput} 
         className={`input input-text${error ? ' input-text-error' : ''}`}
         id={name} 
         name={name}
@@ -20,7 +35,13 @@ const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) 
         htmlFor={name} 
         className={`input-label${error ? ' input-label-error' : ''}`}
       >{label}</label>
-      {/* {error && <p className="msg__error">{error}</p>}  */}
+     
+      <If test={type === 'password' && eyeText}>
+        <FaEye onClick={() => showPassword()}/>
+      </If>
+      <If test={type === 'password' && !eyeText}>
+        <FaEyeSlash onClick={() => showPassword()}/>
+      </If>
     </div>
   )
 }
