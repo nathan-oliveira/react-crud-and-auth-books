@@ -31,6 +31,18 @@ const Row = ({ children, expandChildren, record, getPost, deletePost, head, isEx
     return null;
   });
 
+  const childrenActionsToRender = React.Children.map(expandChildren, (child, childIndex) => {
+    if (child.props.slot === 'actions') {
+      return (
+        React.cloneElement(child, {
+          identifier: `actions_${childIndex}`,
+          record,
+        })
+      )
+    }
+    return null;
+  });
+
   const resizeExpanded = React.useCallback(() => {
     const head = document.querySelector('.table__thead');
     if (!head) return;
@@ -97,16 +109,14 @@ const Row = ({ children, expandChildren, record, getPost, deletePost, head, isEx
               )
             )
           })}
-          <td className="table__action" key={Math.random() * 5e20}>
-            <div className="table__action___button">
-              <button title="Editar" onClick={() => getPost(record.id)} className="table__action__edit">
-                <Edit />
-              </button>
-              <button title="Excluir" onClick={() => deletePost(record.id)} className="table__action__trash">
-                <Trash />
-              </button>
-            </div>
-          </td>
+
+          {(tableHead && Object.keys(tableHead).includes('actions')) && (
+            <td className="table__action" key={Math.random() * 5e20}>
+              <div className="table__action___button">
+                {childrenActionsToRender && (childrenActionsToRender)}
+              </div>
+            </td>
+          )}
 
           {(expand && expandChildren) && childrenToRender}
         </tr>

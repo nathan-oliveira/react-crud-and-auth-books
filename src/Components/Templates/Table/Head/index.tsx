@@ -3,9 +3,11 @@ import '../table.scss'
 
 import { TiArrowDown } from "react-icons/ti";
 import { TiArrowUp } from "react-icons/ti";
+import If from 'Components/Templates/Operator/If';
 
 const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
   const tableHead = head || []
+  const actions = tableHead.find((t: any) => t.key === 'actions');
   let indexRow = 0;
 
   function sortBy(column: string) {
@@ -25,7 +27,7 @@ const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
           if (filterHead) indexRow = indexRow + 1;
           return (
             filterHead && (
-              <th key={key} className={`table__col${indexRow}`}>
+              <th key={key} className={`table__col${indexRow}`} style={{ width: `${filterHead.width}%` }}>
                 <div className="table__thead_icons">
                   {filterHead.title}
                   {orderBy.order && (orderBy.order === 'ASC' ? 
@@ -38,11 +40,12 @@ const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
           )
         })}
 
-        {(keys.length > 0) ? (
-          <th className="table__action"></th>
-        ) : (
-            <th className="table__notItem">&nbsp;</th>
-          )}
+        <If test={keys.length && tableHead && actions}>
+          <th className="table__action" style={{ width: `${actions.width}%` }}>{actions.title}</th>
+        </If>
+        <If test={!keys.length}>
+        <th className="table__notItem">&nbsp;</th>
+        </If>
       </tr>
     </thead >
   )

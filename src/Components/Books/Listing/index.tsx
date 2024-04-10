@@ -11,7 +11,9 @@ import Loading from 'Components/Helper/Loading';
 import NoRegistry from 'Components/Helper/NoRegistry';
 import Table from 'Components/Templates/Table';
 import Pagination from 'Components/Templates/Table/Pagination';
+
 import BookExpand from '../Expand';
+import BookActions from './actions';
 
 const Listing = () => {
   const [page, setPage] = React.useState(1)
@@ -69,12 +71,15 @@ const Listing = () => {
             orderBy={orderBy}
             isExpand
             head={[
-              { key: 'title', title: 'Título' },
-              { key: 'description', title: 'Descrição' },
+              { key: 'title', title: 'Título', width: 40 },
+              { key: 'description', title: 'Descrição', width: 40 },
+              { key: 'actions', title: '', width: 10 },
             ]}
           >
             <BookExpand slot="form" />
+            <BookActions slot="actions" deleteBook={deleteBook} getBook={getBook} />
           </Table>
+
           <Pagination
             data={data}
             total={total}

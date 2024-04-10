@@ -5,6 +5,7 @@ const BookExpand = ({ record }: any) => {
   //   console.log(record)
   // }, []);
 
+  if (!record) return null;
   return (
     <form>
       { record.id }
