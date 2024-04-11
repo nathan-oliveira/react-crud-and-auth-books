@@ -3,19 +3,22 @@ import '../table.scss'
 
 import useMedia from 'Hooks/useMedia'
 
-import { ReactComponent as Trash } from 'Assets/svg/trash.svg'
-import { ReactComponent as Edit } from 'Assets/svg/edit.svg'
 import { useSelector } from 'react-redux'
+import If from 'Components/Templates/Operator/If'
 
-const Row = ({ children, expandChildren, record, getPost, deletePost, head, isExpand, isPair }: any) => {
+const Row = ({ children: expandChildren, record, getPost, deletePost, head, isExpand, isPair }: any) => {
   const [expand, setExpand] = React.useState(false);
   const mobile = useMedia('(max-width: 800px)');
   
-  const { menu, sideBar } = useSelector((state: any) => state.menu)
+  const { menu } = useSelector((state: any) => state.menu)
 
   const keys = Object.keys(record)
   const tableHead = head || {}
   let indexRow = 0;
+
+  const childList = expandChildren
+    .map((child: any) => child.props.slot)
+    .filter((value: string) => value !== 'actions');
 
   const childrenToRender = React.Children.map(expandChildren, (child, childIndex) => {
     if (child.props.slot === 'form') {
@@ -104,7 +107,20 @@ const Row = ({ children, expandChildren, record, getPost, deletePost, head, isEx
             return (
               tableHead[key] && (
                 <td onClick={() => expandRow()} key={key} className={`table__col${indexRow}`}>
-                  {record[key]}
+                  <If test={childList.includes(key)}>
+                    {React.Children.map(expandChildren, (child, childIndex) => {
+                      if (child.props.slot === key) {
+                        return (
+                          React.cloneElement(child, {
+                            identifier: `${child.props.slot}_${childIndex}_${Math.random() * 5e20}`,
+                            items: { record, key },
+                          })
+                        )
+                      }
+                      return null
+                    })}
+                  </If>
+                  <If test={!childList.includes(key)}>{ record[key] }</If>
                 </td>
               )
             )

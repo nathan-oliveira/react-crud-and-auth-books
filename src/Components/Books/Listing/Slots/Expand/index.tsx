@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const BookExpand = ({ record }: any) => {
   // React.useEffect(() => {
@@ -7,9 +7,11 @@ const BookExpand = ({ record }: any) => {
 
   if (!record) return null;
   return (
-    <form>
-      { record.id }
-    </form>
+    <React.Fragment>
+      <form>
+        { record.id }
+      </form>
+    </React.Fragment>
   );
 }
 

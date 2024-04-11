@@ -27,9 +27,8 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
                   head={headValue} 
                   isExpand={!!isExpand} 
                   isPair={(index + 1) % 2 === 0}
-                  expandChildren={children}
                 >
-                  {/* {children} */}
+                  {children}
                 </Row>
               )
             )

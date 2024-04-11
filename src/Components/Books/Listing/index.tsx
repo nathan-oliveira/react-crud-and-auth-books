@@ -12,8 +12,9 @@ import NoRegistry from 'Components/Helper/NoRegistry';
 import Table from 'Components/Templates/Table';
 import Pagination from 'Components/Templates/Table/Pagination';
 
-import BookExpand from '../Expand';
-import BookActions from './actions';
+import BookExpand from './Slots/Expand';
+import BookActions from './Slots/Actions';
+import BookTitleTag from './Slots/TitleTag';
 
 const Listing = () => {
   const [page, setPage] = React.useState(1)
@@ -78,6 +79,7 @@ const Listing = () => {
           >
             <BookExpand slot="form" />
             <BookActions slot="actions" deleteBook={deleteBook} getBook={getBook} />
+            <BookTitleTag slot="title" />
           </Table>
 
           <Pagination

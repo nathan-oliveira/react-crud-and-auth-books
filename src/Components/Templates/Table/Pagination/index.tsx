@@ -92,7 +92,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
     <div className="table__pagination">
       <ul>
         {limit && (
-         <div className="table__pagination_limit">
+          <div className="table__pagination_limit">
             <span>Linhas por página:</span>
             <select
               id="limit"
