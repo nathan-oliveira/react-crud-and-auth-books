@@ -21,7 +21,7 @@ const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) 
     <div className={`input-wrapper${type === 'password' ? ' input-wrapper__password' : ''}`}>
       <input 
         type={type === 'password' ? (eyeText ? 'password' : 'text') : typeInput} 
-        className={`input input-text${error ? ' input-text-error' : ''}`}
+        className={`input input-text-default input-text${error ? ' input-text-error' : ''}`}
         id={name} 
         name={name}
         maxLength={max}

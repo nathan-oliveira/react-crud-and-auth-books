@@ -4,10 +4,12 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useForm from 'Hooks/useForm'
 import useFetch from 'Hooks/useFetch'
 
-import { POST_BOOK, PUT_BOOK, GET_BOOK_ID } from 'Services/api'
+import { POST_BOOK, PUT_BOOK, GET_BOOK_ID, GET_BOOKS } from 'Services/api'
 
 import Input from 'Components/Templates/Form/Input'
+import SelectLazy from 'Components/Templates/Form/SelectLazy'
 // import Select from 'Components/Templates/Form/Select'
+
 import Button from 'Components/Templates/Form/Button'
 import Grid from 'Components/Templates/Form/Grid'
 import Row from 'Components/Templates/Form/Row'
@@ -17,6 +19,7 @@ import Loading from 'Components/Helper/Loading'
 import Error from 'Components/Helper/Error'
 
 import { FaSave } from "react-icons/fa";
+
 
 const Form = (): any => {
   const { id } = useParams();
@@ -84,6 +87,17 @@ const Form = (): any => {
       </Row>
       <Row>
         <Grid cols="12">
+          <SelectLazy 
+            label="Descrição" 
+            type="text" 
+            name="user" 
+            GET={GET_BOOKS} 
+            orderBy={{ column: 'description', order: 'ASC' }} 
+          />
+        </Grid>
+      </Row>
+      <Row>
+        <Grid cols="12">
           <Input
             label="Descrição"
             type="text"
@@ -93,6 +107,7 @@ const Form = (): any => {
           />
         </Grid>
       </Row>
+      
       <RowButton>
         <If test={loading}>
           <Button color="green" disabled>

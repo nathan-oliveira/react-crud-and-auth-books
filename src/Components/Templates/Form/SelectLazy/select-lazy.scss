@@ -4,3 +4,20 @@
   max-height: 107px !important;
   background: #e7e7e7;
 }
+
+.content_select_lazy::-webkit-scrollbar {
+  border-radius: 14px;
+  width: 7px;
+  height: 7px;
+}
+
+.content_select_lazy::-webkit-scrollbar-track-piece {
+  border-radius: 10px;
+  margin: 9px;
+}
+
+.content_select_lazy::-webkit-scrollbar-thumb:vertical {
+  height: 5px;
+  background-color: #cfcfcf ;
+  border-radius: 10px;
+}
