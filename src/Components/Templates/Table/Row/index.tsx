@@ -121,7 +121,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
                       if (child.props.slot === key) {
                         return (
                           React.cloneElement(child, {
-                            identifier: `${child.props.slot}_${childIndex}_${Math.random() * 5e20}`,
+                            identifier: `${child.props.slot}_${childIndex}_${Math.round(Math.random() * 5e20)}`,
                             items: { record, key },
                           })
                         )
@@ -138,7 +138,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
           })}
 
           {(tableHead && Object.keys(tableHead).includes('actions')) && (
-            <td className="table__action" key={Math.random() * 5e20}>
+            <td className="table__action" key={Math.round(Math.random() * 5e20)}>
               <div className="table__action___button">
                 {childrenActionsToRender && (childrenActionsToRender)}
               </div>
