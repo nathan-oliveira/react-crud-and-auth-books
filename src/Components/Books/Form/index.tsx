@@ -33,6 +33,7 @@ const Form = (): any => {
   const { data, loading, error, request }: any = useFetch();
   const { error: errorPost, loading: loadingPost, request: requestPost } = useFetch();
   const { loading: errorPut, error: loadingPut, request: requestPut } = useFetch();
+  const [userSelected, setUserSelected] = React.useState(null);
 
   const { data: dataUser } = useSelector((state: any) => state.user)
   
@@ -47,6 +48,8 @@ const Form = (): any => {
     if (data && id) {
       title.setValue(data.title);
       description.setValue(data.description);
+      userId.setValue(data.userId);
+      setUserSelected({ id: data.user.id, name: data.user.name } as any)
     }
   }, [data, id]);
 
@@ -57,23 +60,29 @@ const Form = (): any => {
   async function handleSubmit(event: any) {
     event.preventDefault();
 
-    if (title.validate() && description.validate()) {
-      const formData = {
-        title: title.value,
-        description: description.value,
-      }
+    const isValidated = title.validate() && 
+      description.validate() && 
+      (dataUser.rule === 2 ? userId.validate() : true);
 
-      if (id) {
-        const { url, options } = PUT_BOOK({ id, formData, token })
-        const { response }: any = await requestPut(url, options)
+    if (!isValidated) return;
 
-        if (response.ok) navigate('/books');
-      } else {
-        const { url, options } = POST_BOOK({ formData, token })
-        const { response }: any = await requestPost(url, options)
+    const formData: any = {
+      title: title.value,
+      description: description.value,
+    }
 
-        if (response.ok) navigate('/books');
-      }
+    if (dataUser.rule === 2) formData.userId = userId.value;
+
+    if (id) {
+      const { url, options } = PUT_BOOK({ id, formData, token })
+      const { response }: any = await requestPut(url, options)
+
+      if (response.ok) navigate('/books');
+    } else {
+      const { url, options } = POST_BOOK({ formData, token })
+      const { response }: any = await requestPost(url, options)
+
+      if (response.ok) navigate('/books');
     }
   }
 
@@ -101,6 +110,7 @@ const Form = (): any => {
               name="user"
               GET={GET_USERS} 
               prop={{ key: 'id', title: 'name' }}
+              valueSelected={userSelected ?? null}
               setValue={changeUserId}
               orderBy={{ column: 'name', order: 'ASC' }} 
             />

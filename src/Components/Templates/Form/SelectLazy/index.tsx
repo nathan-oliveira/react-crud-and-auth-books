@@ -11,7 +11,7 @@ import { FaCaretUp } from "react-icons/fa6";
 import { CgClose } from "react-icons/cg";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
-const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue }: any) => {
+const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue, valueSelected }: any) => {
   const [items, setItems] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(6);
@@ -51,7 +51,6 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue }
   function clearValue() {
     setValue(null); 
     setValueEye('')
-    // setExpanded(false);
   }
 
   const debounceSearch = React.useCallback((value: any) => {
@@ -130,6 +129,10 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue }
 
     if (expanded) interactionItems();
   }, [dataRequest]);
+
+  React.useEffect(() => {
+    if (valueSelected) emitValue(valueSelected)
+  }, [valueSelected])
 
   return (
     <div className={`select__lazy${expanded ? ' select__lazy_shadow' : ''}`}>
