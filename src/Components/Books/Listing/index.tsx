@@ -72,14 +72,15 @@ const Listing = () => {
             orderBy={orderBy}
             isExpand
             head={[
-              { key: 'title', title: 'Título', width: 40 },
-              { key: 'description', title: 'Descrição', width: 40 },
+              { key: 'title', title: 'Título' },
+              { key: 'description', title: 'Descrição' },
+              { key: 'active', title: 'active' },
               { key: 'actions', title: '', width: 10 },
             ]}
           >
             <BookExpand slot="form" />
             <BookActions slot="actions" deleteBook={deleteBook} getBook={getBook} />
-            <BookTitleTag slot="title" />
+            {/* <BookTitleTag slot="title" /> */}
           </Table>
 
           <Pagination

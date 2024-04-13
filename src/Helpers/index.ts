@@ -77,3 +77,16 @@ export function revertMoney(v: any) {
 
   return v;
 }
+
+export function orderTableKeys(keys = [], head  = []) {
+  return keys.sort((a, b) => {
+    const indexA = head.findIndex((item: any) => item.key === a);
+    const indexB = head.findIndex((item: any) => item.key === b);
+  
+    // Se uma chave não estiver presente em head, coloque-a no final
+    if (indexA === -1) return 1;
+    if (indexB === -1) return -1;
+  
+    return indexA - indexB;
+  });
+}

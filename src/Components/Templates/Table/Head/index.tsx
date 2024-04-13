@@ -1,15 +1,17 @@
 import React from 'react'
 import '../table.scss'
 
+import { orderTableKeys } from 'Helpers';
+
 import { TiArrowDown } from "react-icons/ti";
 import { TiArrowUp } from "react-icons/ti";
 import If from 'Components/Templates/Operator/If';
 
 const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
   const tableHead = head || []
+  const orderKeys = orderTableKeys(keys, head)
   const actions = tableHead.find((t: any) => t.key === 'actions');
   let indexRow = 0;
-
   function sortBy(column: string) {
     if (setOrderBy && orderBy) {
       setOrderBy({
@@ -19,15 +21,17 @@ const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
     }
   }
 
+  console.log(tableHead.length)
+
   return (
     <thead className="table__thead">
       <tr>
-        {keys.map((key: any, index: any) => {
+        {orderKeys.map((key: any, index: any) => {
           const filterHead = tableHead.find((h: any) => h.key === key);
           if (filterHead) indexRow = indexRow + 1;
           return (
             filterHead && (
-              <th key={key} className={`table__col${indexRow}`} style={{ width: `${filterHead.width}%` }}>
+              <th key={key} className={`table__col${indexRow}`} style={{ width: `${filterHead.width ?? (100 / tableHead.length)}%` }}>
                 <div className="table__thead_icons">
                   {filterHead.title}
                   {orderBy.order && (orderBy.order === 'ASC' ? 
@@ -41,7 +45,7 @@ const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
         })}
 
         <If test={keys.length && tableHead && actions}>
-          <th className="table__action" style={{ width: `${actions.width}%` }}>{actions.title}</th>
+          <th className="table__action" style={{ width: `${actions.width ?? 10}%` }}>{actions.title}</th>
         </If>
         <If test={!keys.length}>
         <th className="table__notItem">&nbsp;</th>

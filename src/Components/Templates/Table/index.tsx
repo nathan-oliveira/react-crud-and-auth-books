@@ -9,7 +9,7 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
   const headValue = head.reduce((acc: any, current: any) => {
     acc[current.key] = current.title;
     return acc;
- }, {});
+  }, {});
 
   return (
     <React.Fragment>
@@ -23,8 +23,9 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
                   key={record.id} 
                   record={record} 
                   deletePost={deletePost} 
-                  getPost={getPost} 
-                  head={headValue} 
+                  getPost={getPost}
+                  head={head}
+                  tableHead={headValue} 
                   isExpand={!!isExpand} 
                   isPair={(index + 1) % 2 === 0}
                 >

@@ -1,19 +1,22 @@
 import React from 'react'
 import '../table.scss'
 
+import { orderTableKeys } from 'Helpers'
+
 import useMedia from 'Hooks/useMedia'
 
 import { useSelector } from 'react-redux'
 import If from 'Components/Templates/Operator/If'
 
-const Row = ({ children: expandChildren, record, getPost, deletePost, head, isExpand, isPair }: any) => {
+const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead, head, isExpand, isPair }: any) => {
   const [expand, setExpand] = React.useState(false);
   const mobile = useMedia('(max-width: 800px)');
   
   const { menu } = useSelector((state: any) => state.menu)
 
   const keys = Object.keys(record)
-  const tableHead = head || {}
+  const orderKeys = orderTableKeys(keys as any, head)
+
   let indexRow = 0;
 
   const childList = expandChildren
@@ -47,9 +50,9 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, head, isEx
   });
 
   const resizeExpanded = React.useCallback(() => {
-    const head = document.querySelector('.table__thead');
-    if (!head) return;
-    const headRows = head.childNodes[0]?.childNodes;
+    const headSelected = document.querySelector('.table__thead');
+    if (!headSelected) return;
+    const headRows = headSelected.childNodes[0]?.childNodes;
     const isRows = headRows && headRows.length;
     if (!isRows) return;
 
@@ -58,8 +61,14 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, head, isEx
     if (!isExpanded) return;
 
     headRows.forEach((el: any, index: any) => {
-      rowsExpanded[index].width = `${el.clientWidth}px`;
-      rowsExpanded[index].style.paddingLeft = '25px';
+      if (index === 0) {
+        const math = Math.ceil(22 / headRows.length);
+        rowsExpanded[index].width = `${el.clientWidth + math}px`;
+        rowsExpanded[index].style.paddingLeft = '25px';
+      } else {
+        rowsExpanded[index].width = `${el.clientWidth}px`;
+        rowsExpanded[index].style.paddingLeft = '17px';
+      }
     })
   },[]);
 
@@ -102,7 +111,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, head, isEx
     return (
       <>
         <tr className={`${expand ? 'table__row__expanded' : 'table__row'}${isPair ? ' table__row__pair' : ''}`} key={record.id}>
-          {keys.map((key) => {
+          {orderKeys.map((key) => {
             if (tableHead[key]) indexRow = indexRow + 1;
             return (
               tableHead[key] && (
@@ -120,7 +129,9 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, head, isEx
                       return null
                     })}
                   </If>
-                  <If test={!childList.includes(key)}>{ record[key] }</If>
+                  <If test={!childList.includes(key)}>
+                    { typeof record[key] === 'boolean' ? (record[key] ? 'Ativo' : 'Inativo') : record[key] }
+                  </If>
                 </td>
               )
             )
