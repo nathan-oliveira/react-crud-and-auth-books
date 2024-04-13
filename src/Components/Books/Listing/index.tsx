@@ -84,7 +84,6 @@ const Listing = () => {
             <BookTitleTag slot="title" />
             <ActiveSlot slot="active" />
             <BookActions slot="actions" deleteBook={deleteBook} getBook={getBook} />
-            {/* BookActive */}
           </Table>
 
           <Pagination

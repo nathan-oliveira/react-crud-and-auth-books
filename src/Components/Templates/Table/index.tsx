@@ -14,7 +14,7 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
   return (
     <React.Fragment>
       <table className={`table ${!loading && 'listing'}`}>
-        <Head keys={keys} head={head} setOrderBy={setOrderBy} orderBy={orderBy}/>
+        <Head keys={keys} head={head} setOrderBy={setOrderBy} orderBy={orderBy} />
         <tbody className={'table__tbody'}>
           {(keys.length > 0) ? (
             dataTable.map(

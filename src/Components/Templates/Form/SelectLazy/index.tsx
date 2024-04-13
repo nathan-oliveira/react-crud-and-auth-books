@@ -1,6 +1,6 @@
 import React from 'react'
-import './select-lazy.scss'
 import '../Input/input.scss'
+import './select-lazy.scss'
 import { useSelector } from 'react-redux';
 
 import useFetch from 'Hooks/useFetch';
@@ -10,7 +10,7 @@ import { FaCaretDown } from "react-icons/fa6";
 import { FaCaretUp } from "react-icons/fa6";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
-const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue, valueSelected }: any) => {
+const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, valueSelected }: any) => {
   const [items, setItems] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(6);
@@ -42,13 +42,13 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue, 
   }
 
   function emitValue(record: any) {
-    setValue(record[prop.key]); 
+    onChange({ target: { value: record[prop.key] } }); 
     setValueEye(record[prop.title])
     setExpanded(false);
   }
 
   function clearValue() {
-    setValue(null); 
+    onChange({ target: { value: null } }); 
     setValueEye('')
   }
 
@@ -138,7 +138,7 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue, 
       <div className="input-wrapper input-wrapper__select">
         <input 
           type="text" 
-          className={`input input-text__select input-text${error ? ' input-text-error' : ''}${expanded ? ' input-text__select_shadow' : ''}`}
+          className={`input input-text__select input-text${error ? ' input-text-error' : ''}${expanded ? ' input-text__select_shadow ' : ''}`}
           id={name} 
           name={name}
           onChange={(e) => debounceSearch(e.target.value)}

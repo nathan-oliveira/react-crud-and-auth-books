@@ -94,68 +94,9 @@ input.input-text-default:focus ~ .input-label {
   padding-right: 33px !important;
 }
 
-.input-wrapper__select {
-  z-index: 2;
-}
-
-.input-wrapper__select input.input, 
-.input-wrapper__select label.input-label {
-  cursor: pointer;
-}
-
-.select__lazy .input-wrapper__select {
-	margin-bottom: 0px !important;
-}
-
-.select__lazy_shadow {
-  box-shadow: 0px 1px 5px 0px rgba(54, 54, 54, 0.2) !important;
-  border-radius: 22px;
-  border-bottom-left-radius: 15px !important;
-  border-bottom-right-radius: 15px !important;
-}
-
-.select__lazy .content_select_lazy {
-	margin-top: -14px !important;
-  margin-bottom: 13px !important;
-  padding: 8px 14px !important;
-  border-bottom-left-radius: 15px !important;
-  border-bottom-right-radius: 15px !important;
-  background: #fff !important;
-}
-
-.select__lazy .content_select_lazy div {
-	padding: 2px 0px !important;
-}
-
-.select__lazy {
-  margin-top: 2px !important;
-}
-
-.select__lazy .input-wrapper__select {
-  margin-top: 0px !important;
-  border-radius: 20px;
-}
-
 .input.input-text__select_shadow {
   border: none !important;
   border-bottom: 1px solid #cfcfcf !important;
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
-}
-
-.select__lazy .content_select_lazy::-webkit-scrollbar {
-  border-radius: 14px !important;
-  width: 7px !important;
-  height: 7px !important;
-}
-
-.select__lazy .content_select_lazy::-webkit-scrollbar-track-piece {
-  border-radius: 10px !important;
-  margin: 9px !important;
-}
-
-.select__lazy .content_select_lazy::-webkit-scrollbar-thumb:vertical {
-  height: 5px !important;
-  background-color: #cfcfcf !important;
-  border-radius: 10px !important;
 }

@@ -115,8 +115,8 @@ const Form = (): any => {
               GET={GET_USERS} 
               prop={{ key: 'id', title: 'name' }}
               valueSelected={userSelected ?? null}
-              setValue={changeUserId}
-              orderBy={{ column: 'name', order: 'ASC' }} 
+              orderBy={{ column: 'name', order: 'ASC' }}
+              {...userId}
             />
           </Grid>
         </Row>
