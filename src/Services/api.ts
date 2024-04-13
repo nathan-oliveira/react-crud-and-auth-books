@@ -1,6 +1,6 @@
 export const URL_API = 'http://localhost:3000/api'
 
-export function POST_USER(formData: any) {
+export function POST_SIGNUP(formData: any) {
   return {
     url: `${URL_API}/auth/signup`,
     options: {
@@ -121,3 +121,4 @@ export function GET_PROFILE_PHOTO(token: any) {
 }
 
 export * from './books'
+export * from './users'

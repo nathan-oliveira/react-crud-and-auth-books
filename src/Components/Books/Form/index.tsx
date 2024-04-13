@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import useForm from 'Hooks/useForm'
 import useFetch from 'Hooks/useFetch'
 
-import { POST_BOOK, PUT_BOOK, GET_BOOK_ID, GET_BOOKS } from 'Services/api'
+import { POST_BOOK, PUT_BOOK, GET_BOOK_ID, GET_USERS } from 'Services/api'
 
 import Input from 'Components/Templates/Form/Input'
 import SelectLazy from 'Components/Templates/Form/SelectLazy'
@@ -27,11 +27,14 @@ const Form = (): any => {
 
   const title = useForm();
   const description = useForm();
+  const userId = useForm();
 
   const { token } = useSelector((state: any) => state.user.data);
   const { data, loading, error, request }: any = useFetch();
   const { error: errorPost, loading: loadingPost, request: requestPost } = useFetch();
   const { loading: errorPut, error: loadingPut, request: requestPut } = useFetch();
+
+  const { data: dataUser } = useSelector((state: any) => state.user)
   
   React.useEffect(() => {
     if (id) {
@@ -46,6 +49,10 @@ const Form = (): any => {
       description.setValue(data.description);
     }
   }, [data, id]);
+
+  function changeUserId(id: string) {
+    if (dataUser.rule === 2) userId.setValue(id);
+  }
 
   async function handleSubmit(event: any) {
     event.preventDefault();
@@ -85,17 +92,21 @@ const Form = (): any => {
           />
         </Grid>
       </Row>
-      <Row>
-        <Grid cols="12">
-          <SelectLazy 
-            label="Descrição" 
-            type="text" 
-            name="user" 
-            GET={GET_BOOKS} 
-            orderBy={{ column: 'description', order: 'ASC' }} 
-          />
-        </Grid>
-      </Row>
+      {(dataUser.rule === 2) && (
+        <Row>
+          <Grid cols="12">
+            <SelectLazy 
+              label="Usuário" 
+              type="text" 
+              name="user"
+              GET={GET_USERS} 
+              prop={{ key: 'id', title: 'name' }}
+              setValue={changeUserId}
+              orderBy={{ column: 'name', order: 'ASC' }} 
+            />
+          </Grid>
+        </Row>
+      )}
       <Row>
         <Grid cols="12">
           <Input

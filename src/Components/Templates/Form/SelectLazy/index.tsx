@@ -8,9 +8,10 @@ import If from 'Components/Templates/Operator/If';
 
 import { FaCaretDown } from "react-icons/fa6";
 import { FaCaretUp } from "react-icons/fa6";
+import { CgClose } from "react-icons/cg";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
-const SelectLazy = ({ GET, orderBy, label, type, name, value, onChange, error, onBlur, max }: any) => {
-  const [total, setTotal] = React.useState(0);
+const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue }: any) => {
   const [items, setItems] = React.useState([]);
   const [page, setPage] = React.useState(1);
   const [limit, setLimit] = React.useState(6);
@@ -18,6 +19,7 @@ const SelectLazy = ({ GET, orderBy, label, type, name, value, onChange, error, o
   const [search, setSearch] = React.useState('');
 
   const [expanded, setExpanded] = React.useState(false);
+  const [valueEye, setValueEye] = React.useState('');
 
   const { token } = useSelector((state: any) => state.user.data)
   const { 
@@ -38,6 +40,18 @@ const SelectLazy = ({ GET, orderBy, label, type, name, value, onChange, error, o
     } else {
       return Math.floor(value);
     }
+  }
+
+  function emitValue(record: any) {
+    setValue(record[prop.key]); 
+    setValueEye(record[prop.title])
+    setExpanded(false);
+  }
+
+  function clearValue() {
+    setValue(null); 
+    setValueEye('')
+    // setExpanded(false);
   }
 
   const debounceSearch = React.useCallback((value: any) => {
@@ -87,14 +101,6 @@ const SelectLazy = ({ GET, orderBy, label, type, name, value, onChange, error, o
     loadItems(limit, page, search as any);
   }, [bottomVisible, items.length, totalRequest, loadItems, limit, page, search]);
 
-  // React.useEffect(() => {
-  //   if (!!search) {
-      // setItems([])
-      // setPage(1)
-      // loadItems(limit, page, search as any);
-  //   }
-  // }, [search, loadItems]);
-
   React.useEffect(() => {
     if (expanded) {
       setPage((value) => value + 1);
@@ -134,10 +140,12 @@ const SelectLazy = ({ GET, orderBy, label, type, name, value, onChange, error, o
           id={name} 
           name={name}
           onChange={(e) => debounceSearch(e.target.value)}
-          onClick={() => showExpanded()}
+          onClick={() => {
+            if (!expanded) showExpanded()
+          }}
           autoComplete="off" 
           onBlur={onBlur}
-          value={search}
+          value={!expanded ? valueEye : search}
           placeholder={!expanded ? ' ': 'Pesquisar'}
           readOnly={!expanded}
         />
@@ -148,22 +156,34 @@ const SelectLazy = ({ GET, orderBy, label, type, name, value, onChange, error, o
             className={`input-label${error ? ' input-label-error' : ''}`}
           >{label}</label>
         </If>
-      
+
         <If test={!expanded}>
           <FaCaretDown onClick={() => showExpanded()}/>
         </If>
         <If test={expanded}>
           <FaCaretUp onClick={() => showExpanded()}/>
         </If>
+
+        <If test={valueEye !== '' && valueEye !== null && !expanded}>
+          <IoCloseCircleOutline onClick={() => clearValue()} />
+        </If>
       </div>
 
       <If test={expanded}>
         <div className="content_select_lazy animeTop" id="content_select_lazy">
-          {items.length} {totalRequest}
           {(items.length > 0) && (
             items.map((record: any) => (
-              <div key={record.id}>{record.description}</div>
+              <div 
+                className="content_select_lazy_item" 
+                key={record[prop.key]} onClick={() => emitValue(record)}
+              >
+                {record[prop.title]}
+              </div>
             ))
+          )}
+
+          {(items.length === 0) && (
+            <div className="content_select_lazy_item">Nenhum registro encontrado.</div>
           )}
         </div>
       </If>

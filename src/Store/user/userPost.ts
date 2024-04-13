@@ -1,11 +1,11 @@
 import createAsyncSlice from 'Store/helper/createAsyncSlice'
-import { POST_USER } from 'Services/api'
+import { POST_SIGNUP } from 'Services/api'
 import { fetchLogin, resetTokenState, setDataUser } from './user'
 import { validateToken, fetchErrorToken } from './validateToken'
 
 const slice = createAsyncSlice({
   name: 'userPost',
-  fetchConfig: (formData: any) => POST_USER(formData),
+  fetchConfig: (formData: any) => POST_SIGNUP(formData),
 })
 
 export const userPost = slice.asyncAction;
