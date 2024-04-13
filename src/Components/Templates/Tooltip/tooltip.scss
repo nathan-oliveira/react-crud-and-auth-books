@@ -1,0 +1,40 @@
+.tooltip_element {
+  position: relative;
+  width: fit-content;
+}
+
+.tooltip {
+  position: absolute;
+  width: max-content;
+  background-color: var(--clr-shadow-400);
+  color: white;
+  padding: 0 5px;
+  font-size: 12px;
+  height: 16px;
+  border-radius: 5px;
+  opacity: 0;
+  top: 0;
+}
+
+.tooltip_element:hover .tooltip {
+  opacity: 1;
+}
+
+.tooltip-right {
+  right: 120% !important;
+}
+
+.tooltip-left {
+  right: 105% !important;
+  left: 30px !important;
+}
+
+.tooltip-top {
+  top: -100% !important;
+  left: -105% !important;
+}
+
+.tooltip-bottom {
+  top: 100% !important;
+  left: -105% !important;
+}

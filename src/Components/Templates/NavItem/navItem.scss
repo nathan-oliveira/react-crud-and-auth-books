@@ -1,4 +1,4 @@
-.navbar__item  {
+.navbar__item {
   min-height: calc(var(--vh-offset) - 75px);
 
   .navbar__item_content {
@@ -6,14 +6,25 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding-top: 10px;
+
+    a {
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+        fill: #000000de;
+      }
+    }
   }
 }
 
 .navbar__item.navbar__item__open {
   .navbar__item_content {
     a:hover,
-    div.nav__item_dropdown:hover,
     div.nav__item_dropdown_list:hover {
+      background: #f7f6fbd1;
+    }
+
+    div.nav__item_dropdown_text:hover {
       background: #f7f6fbd1;
     }
   }
@@ -133,6 +144,7 @@ svg.chevron-up {
   span.onscreen {
     margin-right: 12px;
     margin-left: 15px;
+    margin-top: 1px;
   }
 
   div.nav__item_dropdown {
@@ -142,6 +154,12 @@ svg.chevron-up {
       padding: 5px 20px;
       display: flex;
       align-items: center;
+      margin-bottom: -2px;
+
+      svg {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
 
       .nav__item_dropdown_content {
         display: flex;

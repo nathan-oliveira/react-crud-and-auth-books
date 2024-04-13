@@ -28,7 +28,9 @@ const Header = () => {
   const { pathname } = useLocation();
 
   React.useEffect(() => {
-    const currentPage = SidebarData.find((side: any) => side.path === pathname);
+    const currentPage = SidebarData.find((side: any) => (
+      side.path === pathname.split('/create')[0] || side.path === pathname.split('/edit')[0])
+    );
     if (currentPage) setHeaderInfo(currentPage.title)
     else setHeaderInfo('');
   }, [pathname])

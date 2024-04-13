@@ -38,10 +38,8 @@
         padding: 9px 15px;
         text-align: left;
         background: #fff;
-        color: #000;
+        color: #272727;
         border-bottom: 1px solid #e7e7e7ab;
-        // background: #292929;
-        // color: white;
         font-weight: 600;
         
         div.table__thead_icons {
@@ -56,6 +54,10 @@
         }
 
         div.table__thead_icons:hover {
+          span.table__thead_text {
+            cursor: pointer;
+          }
+
           .table__thead_icon_arrow {
             visibility: initial !important;
             cursor: pointer;

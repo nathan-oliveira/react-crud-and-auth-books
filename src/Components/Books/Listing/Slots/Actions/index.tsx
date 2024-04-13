@@ -10,6 +10,7 @@ const BookActions = ({ record, getBook, deleteBook }: any) => {
       <button className="table__action__edit" title="Editar" onClick={() => getBook(record.id)} >
         <Edit />
       </button>
+
       <button className="table__action__trash" title="Excluir" onClick={() => deleteBook(record.id)}>
         <Trash />
       </button>

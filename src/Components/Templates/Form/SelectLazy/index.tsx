@@ -138,7 +138,7 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
       <div className="input-wrapper input-wrapper__select">
         <input 
           type="text" 
-          className={`input input-text__select input-text${error ? ' input-text-error' : ''}${expanded ? ' input-text__select_shadow ' : ''}`}
+          className={`input input-text__select input-text${error ? ' input-text-error' : ''}${expanded ? ' input-text__select_shadow' : ' input-text__select_pointer'}`}
           id={name} 
           name={name}
           onChange={(e) => debounceSearch(e.target.value)}
@@ -155,7 +155,7 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
         <If test={!expanded}>
           <label
             htmlFor={name} 
-            className={`input-label${error ? ' input-label-error' : ''}`}
+            className={`input-label${error ? ' input-label-error' : ''} ${expanded ? '' : ' label__select_pointer'}`}
           >{label}</label>
         </If>
 

@@ -54,8 +54,8 @@
   z-index: 2;
 }
 
-.input-wrapper__select input.input, 
-.input-wrapper__select label.input-label {
+.input-wrapper__select input.input-text__select_pointer, 
+.input-wrapper__select label.label__select_pointer {
   cursor: pointer;
 }
 
