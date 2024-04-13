@@ -21,8 +21,6 @@ const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
     }
   }
 
-  console.log(tableHead.length)
-
   return (
     <thead className="table__thead">
       <tr>

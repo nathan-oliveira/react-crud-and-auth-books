@@ -2,5 +2,9 @@
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: space-between;
+  margin-top: 5px;
+}
+
+.row__button_right {
   float: right;
 }

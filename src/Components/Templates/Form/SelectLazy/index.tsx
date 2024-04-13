@@ -8,7 +8,6 @@ import If from 'Components/Templates/Operator/If';
 
 import { FaCaretDown } from "react-icons/fa6";
 import { FaCaretUp } from "react-icons/fa6";
-import { CgClose } from "react-icons/cg";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, setValue, valueSelected }: any) => {

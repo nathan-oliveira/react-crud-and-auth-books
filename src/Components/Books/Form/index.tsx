@@ -8,18 +8,19 @@ import { POST_BOOK, PUT_BOOK, GET_BOOK_ID, GET_USERS } from 'Services/api'
 
 import Input from 'Components/Templates/Form/Input'
 import SelectLazy from 'Components/Templates/Form/SelectLazy'
-// import Select from 'Components/Templates/Form/Select'
-
+import Switch from 'Components/Templates/Form/Switch'
+import Checkbox from 'Components/Templates/Form/Checkbox'
 import Button from 'Components/Templates/Form/Button'
 import Grid from 'Components/Templates/Form/Grid'
 import Row from 'Components/Templates/Form/Row'
 import RowButton from 'Components/Templates/Form/RowButton'
+
+
 import If from 'Components/Templates/Operator/If'
 import Loading from 'Components/Helper/Loading'
 import Error from 'Components/Helper/Error'
 
 import { FaSave } from "react-icons/fa";
-
 
 const Form = (): any => {
   const { id } = useParams();
@@ -28,6 +29,7 @@ const Form = (): any => {
   const title = useForm();
   const description = useForm();
   const userId = useForm();
+  const active = useForm();
 
   const { token } = useSelector((state: any) => state.user.data);
   const { data, loading, error, request }: any = useFetch();
@@ -48,6 +50,7 @@ const Form = (): any => {
     if (data && id) {
       title.setValue(data.title);
       description.setValue(data.description);
+      active.setValue(data.active)
       userId.setValue(data.userId);
       setUserSelected({ id: data.user.id, name: data.user.name } as any)
     }
@@ -69,6 +72,7 @@ const Form = (): any => {
     const formData: any = {
       title: title.value,
       description: description.value,
+      active: active.value,
     }
 
     if (dataUser.rule === 2) formData.userId = userId.value;
@@ -128,18 +132,21 @@ const Form = (): any => {
           />
         </Grid>
       </Row>
-      
+
       <RowButton>
+        <Switch label={true} name="active" {...active} />
+        {/* <Checkbox label={true} name="active" {...active} /> */}
+
         <If test={loading}>
           <Button color="green" disabled>
             <FaSave />
-            {id ? 'Atualizando...' : 'Cadastrando...'}
+            <span>{id ? 'Atualizando...' : 'Cadastrando...'}</span>
           </Button>
         </If>
         <If test={!loading}>
           <Button color="green" className="button__save">
             <FaSave />
-            Salvar
+            <span>Salvar</span>
           </Button>
         </If>
       </RowButton>

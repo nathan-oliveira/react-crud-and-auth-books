@@ -1,9 +1,9 @@
 import React from 'react'
 import './row-button.scss'
 
-const RowButton = ({ children }: any) => {
+const RowButton = ({ children, className }: any) => {
   return (
-    <div className="row__button">
+    <div className={`row__button ${className}`}>
       {children}
     </div>
   )
