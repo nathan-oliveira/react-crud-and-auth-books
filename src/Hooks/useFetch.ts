@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { userLogout } from 'Store/user/userPost';
+import { userLogout } from 'Store/user/auth';
 
 const useFetch = (typeResult: string = 'json') => {
   const [data, setData] = React.useState(null);

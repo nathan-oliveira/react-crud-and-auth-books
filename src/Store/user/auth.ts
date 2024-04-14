@@ -4,11 +4,11 @@ import { fetchLogin, resetTokenState, setDataUser } from './user'
 import { validateToken, fetchErrorToken } from './validateToken'
 
 const slice = createAsyncSlice({
-  name: 'userPost',
+  name: 'auth',
   fetchConfig: (formData: any) => POST_SIGNUP(formData),
 })
 
-export const userPost = slice.asyncAction;
+export const userSignUp = slice.asyncAction;
 
 export const userLogin = (dataForm: any): any => async (dispatch: any) => {
   const { payload } = await dispatch(fetchLogin(dataForm))

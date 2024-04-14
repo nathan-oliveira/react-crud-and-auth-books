@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss'
 import { BrowserRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { verifyToken } from 'Store/user/userPost'
+import { verifyToken } from 'Store/user/auth'
 import Router from './Router'
 
 import Header from 'Components/Templates/Header'

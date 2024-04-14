@@ -2,7 +2,7 @@ import createAsyncSlice from 'Store/helper/createAsyncSlice'
 import { POST_LOGIN } from 'Services/api'
 
 const slice = createAsyncSlice({
-  name: 'token',
+  name: 'user',
   initialState: {
     data: {
       token: localStorage.getItem('access-token') || null,

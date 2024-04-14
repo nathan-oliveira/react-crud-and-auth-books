@@ -13,10 +13,10 @@ import If from 'Components/Templates/Operator/If'
 
 const Form = () => {
   const name = useForm();
-  const username = useForm(null);
-  const email = useForm('email');
-  const password = useForm();
-  const password_confirmation = useForm();
+  const username = useForm();
+  const email = useForm({ type: 'email' });
+  const password = useForm({ required: false });
+  const password_confirmation = useForm({ required: false });
 
   const { loading, error, request }: any = useFetch();
   const { data } = useSelector((state: any) => state.user);
@@ -33,12 +33,13 @@ const Form = () => {
     event.preventDefault();
 
     if (name.validate() && email.validate()) {
-      const dataForm = {
+      const dataForm: any = {
         name: name.value,
         email: email.value,
-        password: password.value ? password.value : undefined,
-        password_confirmation: password_confirmation.value ? password_confirmation.value : undefined
       }
+
+      if (password.value) dataForm.password = password.value;
+      if (password_confirmation.value) dataForm.password_confirmation = password_confirmation.value;
 
       if (password.value || password_confirmation.value) {
         if (password.value !== password_confirmation.value) {
@@ -117,7 +118,7 @@ const Form = () => {
           />
         </Grid>
       </Row>
-      <RowButton>
+      <RowButton classRow="row__button_right">
         <If test={loading}>
           <Button disabled>Atualizando...</Button>
         </If>

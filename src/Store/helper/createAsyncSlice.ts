@@ -49,7 +49,7 @@ const createAsyncSlice = (config: any) => {
       const { url, options } = config.fetchConfig(payload);
       const response = await fetch(url, options);
       const data = await response.json();
-      if (response.ok === false) throw new Error(data.error);
+      if (response.ok === false) throw new Error(data.message);
       return dispatch(fetchSuccess(data));
     } catch (error: any) {
       return dispatch(fetchError(error.message));

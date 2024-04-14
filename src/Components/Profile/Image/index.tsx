@@ -9,12 +9,12 @@ const Image = () => {
   React.useEffect(() => {
     let objectUrl: any;
     if (data.file) objectUrl = URL.createObjectURL(data.file)
-    setPhoto((data.file === null) ? Avatar : objectUrl)
+    setPhoto(!data.file ? Avatar : objectUrl)
     return () => { if (objectUrl) URL.revokeObjectURL(objectUrl) }
   }, [data])
 
   return (
-    <img src={photo} alt="Foto de Perfil" width="200px" />
+    <img src={photo} alt="Foto de Perfil" />
   )
 }
 

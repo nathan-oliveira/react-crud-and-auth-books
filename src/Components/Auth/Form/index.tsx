@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import useForm from 'Hooks/useForm'
-import { userPost, userLogin } from 'Store/user/userPost'
+import { userSignUp, userLogin, verifyToken } from 'Store/user/auth'
 
 
 import Input from 'Components/Templates/Form/Input'
@@ -16,39 +16,52 @@ import If from 'Components/Templates/Operator/If'
 
 
 const Form = ({ login, setLogin, setError }: any) => {
-  const name = useForm(null)
-  const username = useForm(null)
-  const email = useForm('email')
-  const password = useForm(null)
-  const password_confirmation = useForm(null)
+  const name = useForm()
+  const username = useForm()
+  const email = useForm({ type: 'email' })
+  const password = useForm()
+  const password_confirmation = useForm()
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, error } = useSelector((state: any) => state.user)
-  const { error: errorToken } = useSelector((state: any) => state.user)
 
   React.useEffect(() => {
-    setError(errorToken);
-  }, [errorToken, setError])
+    setError(error);
+  }, [error, setError])
 
   async function handleSubmit(event: any) {
     event.preventDefault();
-
+    
     if (login) {
       if (username.validate() && password.validate()) {
         await dispatch(userLogin({ username: username.value, password: password.value }))
-        if (!errorToken) navigate('/')
         if (error) setError(error)
+        if (!error) {
+          await dispatch(verifyToken())
+          navigate('/')
+        }
       }
     } else {
       if (name.validate() && username.validate() && password.validate() && password_confirmation.validate()) {
-        await dispatch(userPost({
+        if (password_confirmation.value !== password.value) {
+          password.setError(true)
+          password_confirmation.setError(true)
+          return alert("O campo 'Nova Senha' e 'Confirmar (Nova Senha)' não são iguais!")
+        }
+
+        if (password.value.length < 5 || password_confirmation.value.length < 6) {
+          password.setError(true)
+          password_confirmation.setError(true)
+          return alert("O campo 'Nova Senha' e 'Confirmar (Nova Senha)' deve conter no mínimo 6 caracteres!")
+        }
+
+        await dispatch(userSignUp({
           name: name.value,
           username: username.value,
           email: email.value,
           password: password.value,
-          password_confirmation: password_confirmation.value
-        }))
+        }));
 
         if (error) setError(error)
         if (!error) setLogin(true);
@@ -120,13 +133,13 @@ const Form = ({ login, setLogin, setError }: any) => {
         </Row>
       </If>
 
-      <Row classRow="row__reverse">
+      <Row classRow="row__reverse row__login">
         <If test={loading}>
           <Button disabled>{login ? 'Entrando...' : 'Cadastrando...'}</Button>
         </If>
 
         <If test={!loading}>
-          <Button>{login ? 'Entrar' : 'Cadastrar'}</Button>
+          <Button>{login ? 'Fazer login' : 'Criar conta'}</Button>
         </If>
         
         <button
@@ -135,7 +148,7 @@ const Form = ({ login, setLogin, setError }: any) => {
           className="button__link"
           onClick={() => setLogin(!login)}
         >
-          {login ? 'Não possui uma conta? Criar Agora.' : 'Já possui uma conta? Entrar Agora. '}
+          {login ? 'Não possui uma conta? Criar Agora!' : 'Já possui uma conta? Entrar Agora!'}
         </button>
       </Row>
     </form>

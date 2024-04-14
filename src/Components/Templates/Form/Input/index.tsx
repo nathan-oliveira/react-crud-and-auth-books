@@ -36,10 +36,10 @@ const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) 
         className={`input-label${error ? ' input-label-error' : ''}`}
       >{label}</label>
      
-      <If test={type === 'password' && eyeText}>
+      <If test={type === 'password' && !eyeText}>
         <FaEye onClick={() => showPassword()}/>
       </If>
-      <If test={type === 'password' && !eyeText}>
+      <If test={type === 'password' && eyeText}>
         <FaEyeSlash onClick={() => showPassword()}/>
       </If>
     </div>

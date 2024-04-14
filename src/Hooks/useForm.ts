@@ -21,17 +21,25 @@ const types: any = {
   },
 };
 
-const useForm = (type: any = null): any => {
+interface UseFormProps {
+  type?: string;
+  required?: boolean;
+}
+
+const useForm = (props: UseFormProps = { type: '', required: true }): any => {
+  const type = props?.type ?? '';
+  const required = props?.required ?? true;
+
   const [value, setValue] = React.useState(null);
   const [error, setError] = React.useState(null);
 
   function validate(input: any) {
     const target = { 
-      value: type === 'file' ? input.value : input,  
-      type: type === 'file' ? input.type : null,
+      value: type === 'file' ? input?.value : input,  
+      type: type === 'file' ? input?.type : null,
     };
     
-    if (target.value === null || target.value.length === 0) {
+    if ((target.value === null || target.value?.length === 0) && required === true) {
       setError('Preencha um valor.' as any);
       return false;
     } else if (type === 'file' && types.file && !types.file.mimeTypes.includes(target?.type)) {

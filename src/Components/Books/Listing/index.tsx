@@ -1,6 +1,6 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
 
 import useFetch from 'Hooks/useFetch'
 import { useSearch } from 'Hooks/useQuery';
@@ -16,6 +16,8 @@ import ActiveSlot from 'Components/Templates/Slots/Active';
 import BookExpand from './Slots/Expand';
 import BookActions from './Slots/Actions';
 import BookTitleTag from './Slots/TitleTag';
+import ModalDelete from './ModalDelete';
+import { openModal, closeModal } from 'Store/ui';
 
 
 const Listing = () => {
@@ -26,6 +28,7 @@ const Listing = () => {
 
   const querySearch = useSearch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { token } = useSelector((state: any) => state.user.data)
   const { total, data, loading, error, request } = useFetch()
@@ -42,19 +45,16 @@ const Listing = () => {
   }, [page, limit, querySearch, token, orderBy, request])
 
   async function deleteBook(id: string) {
-    const confirm = window.confirm('Tem certeza que deseja deletar?');
+    const { url, options } = DELETE_BOOK({ id, token })
+    const { response }: any = await requestDelete(url, options)
 
-    if (confirm) {
-      const { url, options } = DELETE_BOOK({ id, token })
-      const { response }: any = await requestDelete(url, options)
-
-      if (response.ok) {
-        const { url, options } = GET_BOOKS(token)
-        request(url, options)
-      }
+    if (response.ok) {
+      const { url, options } = GET_BOOKS(token)
+      request(url, options)
+      dispatch(closeModal())
     }
   }
-
+  
   async function getBook(id: string) {
     navigate(`/books/edit/${id}`)
   }
@@ -64,39 +64,45 @@ const Listing = () => {
   return (
     <React.Fragment>
       {(data !== null) ? (
-        <div className="animeLeft table_wrapper">
-          <Table
-            dataTable={dataTable}
-            loading={loading}
-            deletePost={deleteBook}
-            getPost={getBook}
-            setOrderBy={setOrderBy}
-            orderBy={orderBy}
-            isExpand
-            head={[
-              { key: 'title', title: 'Título' },
-              { key: 'description', title: 'Descrição' },
-              { key: 'active', title: 'Ativo' },
-              { key: 'actions', title: '', width: 10 },
-            ]}
-          >
-            <BookExpand slot="form" />
-            <BookTitleTag slot="title" />
-            <ActiveSlot slot="active" />
-            <BookActions slot="actions" deleteBook={deleteBook} getBook={getBook} />
-          </Table>
+        <>
+          <ModalDelete handlerSubmit={deleteBook} />
+          <div className="animeLeft table_wrapper">
+            <Table
+              dataTable={dataTable}
+              loading={loading}
+              deletePost={deleteBook}
+              getPost={getBook}
+              setOrderBy={setOrderBy}
+              orderBy={orderBy}
+              isExpand
+              head={[
+                { key: 'title', title: 'Título' },
+                { key: 'description', title: 'Descrição' },
+                { key: 'active', title: 'Ativo' },
+                { key: 'actions', title: '', width: 10 },
+              ]}
+            >
+              <BookExpand slot="form" />
+              <BookTitleTag slot="title" />
+              <ActiveSlot slot="active" />
+              <BookActions slot="actions" 
+                deleteBook={(id: string) => dispatch(openModal(id))} 
+                getBook={getBook} 
+              />
+            </Table>
 
-          <Pagination
-            data={data}
-            total={total}
-            setPage={setPage}
-            setLimit={setLimit}
-            page={page}
-            limit={limit}
-            search={querySearch}
-            setDataTable={setDataTable}
-          />
-        </div>
+            <Pagination
+              data={data}
+              total={total}
+              setPage={setPage}
+              setLimit={setLimit}
+              page={page}
+              limit={limit}
+              search={querySearch}
+              setDataTable={setDataTable}
+            />
+          </div>
+        </>
       ) : (
         <NoRegistry to="/books/create" />
       )}

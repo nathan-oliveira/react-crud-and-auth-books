@@ -13,22 +13,23 @@ const Auth = () => {
   const [login, setLogin] = React.useState(true);
   const { data } = useSelector((state: any) => state.user)
 
-  if ((data === null || data?.token === null)) return (
-    <section className="content animeTop">
-      <Head title="Autenticação" />
-      <div className="card">
-        <div className="card__header">
-          <h1 className={login ? "card__header__title" : "card__header__title2"}>
-            {login ? 'Entrar' : 'Cadastrar'}
-          </h1>
+  if ((data === null || data?.token === null)) 
+    return (
+      <section className="content animeTop">
+        <Head title="Autenticação" />
+        <div className="card">
+          <div className="card__header">
+            <h1 className={login ? "card__header__title" : "card__header__title2"}>
+              {login ? 'Entrar' : 'Cadastrar'}
+            </h1>
+          </div>
+          <div className="card__main">
+            {error && <p className="_card__main__error">{error}</p>}
+            <Form login={login} setLogin={setLogin} setError={setError} />
+          </div>
         </div>
-        <div className="card__main">
-          {error && <p className="_card__main__error">{error}</p>}
-          <Form login={login} setLogin={setLogin} setError={setError} />
-        </div>
-      </div>
-    </section>
-  )
+      </section>
+    )
   else
     return <Navigate to="/" />;
 }

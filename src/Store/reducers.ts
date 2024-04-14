@@ -1,13 +1,16 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import menu from './menu/menuToggle'
-import userPost from './user/userPost'
+import ui from './ui'
+import auth from './user/auth'
 import user from './user/user'
 import validateToken from './user/validateToken'
 
+
 const rootReducer = combineReducers({
   menu,
-  userPost,
+  ui,
+  auth,
   user,
   validateToken,
 });

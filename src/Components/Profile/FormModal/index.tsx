@@ -12,15 +12,12 @@ import Button from 'Components/Templates/Form/Button'
 import If from 'Components/Templates/Operator/If'
 
 const FormModal = () => {
-  const file = useForm('file')
+  const file = useForm({ type: 'file' })
+
   const { loading, error, request } = useFetch();
   const { data } = useSelector((state: any) => state.user)
 
   const dispatch = useDispatch()
-
-  // React.useEffect(() => {
-  //   if (data) file.setValue(data.file)
-  // }, [data])
 
   async function handleSubmit(event: any) {
     event.preventDefault()
