@@ -9,12 +9,11 @@ import { POST_BOOK, PUT_BOOK, GET_BOOK_ID, GET_USERS } from 'Services/api'
 import Input from 'Components/Templates/Form/Input'
 import SelectLazy from 'Components/Templates/Form/SelectLazy'
 import Switch from 'Components/Templates/Form/Switch'
-import Checkbox from 'Components/Templates/Form/Checkbox'
+// import Checkbox from 'Components/Templates/Form/Checkbox'
 import Button from 'Components/Templates/Form/Button'
 import Grid from 'Components/Templates/Form/Grid'
 import Row from 'Components/Templates/Form/Row'
 import RowButton from 'Components/Templates/Form/RowButton'
-
 
 import If from 'Components/Templates/Operator/If'
 import Loading from 'Components/Helper/Loading'
@@ -56,9 +55,6 @@ const Form = (): any => {
     }
   }, [data, id]);
 
-  function changeUserId(id: string) {
-    if (dataUser.rule === 2) userId.setValue(id);
-  }
 
   async function handleSubmit(event: any) {
     event.preventDefault();
@@ -72,7 +68,7 @@ const Form = (): any => {
     const formData: any = {
       title: title.value,
       description: description.value,
-      active: active.value,
+      active: id ? active.value : true,
     }
 
     if (dataUser.rule === 2) formData.userId = userId.value;
@@ -134,8 +130,10 @@ const Form = (): any => {
       </Row>
 
       <RowButton>
-        <Switch label={true} name="active" {...active} />
-        {/* <Checkbox label={true} name="active" {...active} /> */}
+        <If test={data && id}>
+          <Switch name="active" {...active} />
+          {/* <Active label={true} name="active" {...active} /> */}
+        </If>
 
         <If test={loading}>
           <Button color="green" disabled>

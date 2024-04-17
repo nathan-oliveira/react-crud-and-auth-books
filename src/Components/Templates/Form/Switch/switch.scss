@@ -11,7 +11,7 @@
     input {
       display:none;
       &:checked + .slider { background-color: #208de4 ; }
-      &:checked + .slider:before { transform: translateX(14px); }
+      &:checked + .slider:before { transform: translateX(15px); }
       &:focus + .slider { box-shadow: 0 0 1px #208de4 ; }
     }
 
@@ -46,5 +46,6 @@
     margin-left: 10px;
     cursor: pointer;
     font-size: 0.9rem;
+    margin-top: -1.5px;
   }
 }

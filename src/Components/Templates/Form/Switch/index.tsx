@@ -3,11 +3,11 @@ import './switch.scss'
 
 import If from 'Components/Templates/Operator/If';
 
-const Switch = ({ label, name, value, onChange, onBlur }: any) => {
+const Switch = ({ hideLabel, name, value, onChange, onBlur }: any) => {
   const [isChecked, setIsChecked] = React.useState(false);
   
   function handleChange(e: any) {
-    setIsChecked(e.target.checked);        
+    setIsChecked(e.target.checked);   
   }
 
   function toggleChecked() {
@@ -37,7 +37,7 @@ const Switch = ({ label, name, value, onChange, onBlur }: any) => {
         </button>
       </span>
 
-      <If test={label}>
+      <If test={!hideLabel}>
         <label htmlFor={name}>{isChecked ? 'Ativo' : 'Inativo'}</label>
       </If>
     </div>       

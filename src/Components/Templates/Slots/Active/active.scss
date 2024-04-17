@@ -1,8 +1,16 @@
-.table__col_active_close svg {
-  fill: red !important;
-  height: 1.4em !important;
+.table__col_active_close {
+  margin-bottom: -4px;
+
+  svg {
+    fill: red !important;
+    height: 1.3em !important;
+  }
 }
 
-.table__col_active_active svg {
-  fill: green !important;
+.table__col_active_active {
+  margin-bottom: -4px;
+
+  svg {
+    fill: green !important;
+  }
 }

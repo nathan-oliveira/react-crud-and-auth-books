@@ -27,7 +27,7 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
     loading: loadingRequest, 
     error: errorRequest, 
     request,
-  }: any = useFetch()
+  }: any = useFetch();
 
   function showExpanded() {
     setExpanded((ex) => !ex);
@@ -132,6 +132,20 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
   React.useEffect(() => {
     if (valueSelected) emitValue(valueSelected)
   }, [valueSelected])
+
+  React.useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (event.target.classList.contains('input-text__select_shadow')) return;
+      if (event.target.classList.contains('content_select_lazy_item')) return;
+      setExpanded(false);
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className={`select__lazy${expanded ? ' select__lazy_shadow' : ''}`}>

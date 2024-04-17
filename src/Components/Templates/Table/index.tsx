@@ -4,6 +4,32 @@ import './table.scss'
 import Head from './Head'
 import Row from './Row'
 
+import Switch from 'Components/Templates/Form/Switch'
+import If from '../Operator/If'
+
+export const TableWrapper = ({ children, changeActive }: any) => {
+  const [active, setActive] = React.useState(true);
+
+  function handlerActive(value: boolean) {
+    changeActive(value);
+    setActive(value);
+  }
+
+  return (
+    <>
+      <If test={changeActive}>
+        <div className="animeLeft table__filters">
+          <Switch name="active" value={active} onChange={(e: any) => handlerActive(e.target.value)} />
+        </div>
+      </If>
+
+      <div className="animeLeft table_wrapper">
+        {children}
+      </div>
+    </>
+  );
+};
+
 const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrderBy, orderBy, isExpand }: any) => {
   const keys = Object.keys(dataTable[0] || [])
   const headValue = head.reduce((acc: any, current: any) => {

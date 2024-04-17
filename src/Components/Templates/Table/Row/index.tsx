@@ -67,10 +67,12 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
         rowsExpanded[index].style.paddingLeft = '25px';
       } else {
         rowsExpanded[index].width = `${el.clientWidth}px`;
-        rowsExpanded[index].style.paddingLeft = '17px';
+        rowsExpanded[index].style.paddingLeft = '19px';
       }
+
+      rowsExpanded[index].style.paddingTop = '7px';
     })
-  },[]);
+  }, [expand, menu, mobile]);
 
   const resizeOffsetRows = React.useCallback(() => {
     if (expand) {
@@ -82,7 +84,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
         });
      });
     }
-  }, [expand, resizeExpanded]);
+  }, [expand, menu, mobile]);
 
   React.useEffect(() => {
     resizeOffsetRows();
@@ -138,11 +140,21 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
           })}
 
           {(tableHead && Object.keys(tableHead).includes('actions')) && (
-            <td className="table__action" key={Math.round(Math.random() * 5e20)}>
-              <div className="table__action___button">
-                {childrenActionsToRender && (childrenActionsToRender)}
-              </div>
-            </td>
+            <>
+              <If test={!expand}>
+                <td className="table__action" key={Math.round(Math.random() * 5e20)}>
+                  <div className="table__action___button">
+                    {childrenActionsToRender && (childrenActionsToRender)}
+                  </div>
+                </td>
+              </If>
+              <If test={expand}>
+                <td className="table__action" key={Math.round(Math.random() * 5e20)}>
+                  <div className="table__action___button"></div>
+                </td>
+              </If>
+             
+            </>
           )}
 
           {(expand && expandChildren) && childrenToRender}
@@ -157,7 +169,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
   else
     return (
       <tr>
-        <td>Ops</td>
+        <td></td>
       </tr>
     )
 }

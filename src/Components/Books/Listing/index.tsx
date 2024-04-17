@@ -9,7 +9,7 @@ import { GET_BOOKS, DELETE_BOOK } from 'Services/api'
 import Error from 'Components/Helper/Error';
 import Loading from 'Components/Helper/Loading';
 import NoRegistry from 'Components/Helper/NoRegistry';
-import Table from 'Components/Templates/Table';
+import Table, { TableWrapper } from 'Components/Templates/Table';
 import Pagination from 'Components/Templates/Table/Pagination';
 
 import ActiveSlot from 'Components/Templates/Slots/Active';
@@ -19,12 +19,12 @@ import BookTitleTag from './Slots/TitleTag';
 import ModalDelete from './ModalDelete';
 import { openModal, closeModal } from 'Store/ui';
 
-
 const Listing = () => {
   const [page, setPage] = React.useState(1)
   const [limit, setLimit] = React.useState(10)
   const [dataTable, setDataTable] = React.useState([])
   const [orderBy, setOrderBy] = React.useState({ column: 'title', order: 'DESC' })
+  const [active, setActive] = React.useState(true)
 
   const querySearch = useSearch();
   const navigate = useNavigate();
@@ -37,12 +37,18 @@ const Listing = () => {
   React.useEffect(() => {
     function find() {
       const { url, options } = GET_BOOKS(token)
-      const params: any = { search: querySearch, page: page.toString(), limit: limit.toString(), orderBy: JSON.stringify(orderBy) };
+      const params: any = {
+        search: querySearch,
+        page: page.toString(),
+        limit: limit.toString(),
+        orderBy: JSON.stringify(orderBy),
+        active,
+      };
       request(`${url}?${new URLSearchParams(params).toString()}`, options);
     }
 
     find()
-  }, [page, limit, querySearch, token, orderBy, request])
+  }, [page, limit, querySearch, token, orderBy, active, request])
 
   async function deleteBook(id: string) {
     const { url, options } = DELETE_BOOK({ id, token })
@@ -64,9 +70,9 @@ const Listing = () => {
   return (
     <React.Fragment>
       {(data !== null) ? (
-        <>
+        <div className="content__body">
           <ModalDelete handlerSubmit={deleteBook} />
-          <div className="animeLeft table_wrapper">
+          <TableWrapper changeActive={(value: boolean) => setActive(value)}>
             <Table
               dataTable={dataTable}
               loading={loading}
@@ -101,8 +107,8 @@ const Listing = () => {
               search={querySearch}
               setDataTable={setDataTable}
             />
-          </div>
-        </>
+          </TableWrapper>
+        </div>
       ) : (
         <NoRegistry to="/books/create" />
       )}
