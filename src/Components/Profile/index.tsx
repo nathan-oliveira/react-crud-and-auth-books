@@ -37,17 +37,21 @@ const Profile = () => {
       <Breadcrumb title="Minha Conta" path="Informações de Usuário" />
 
       <div className="content__page animeLeft">
-        <div className="content__image">
+        <div>
           <ImageProfile />
-          <Details>
+        </div>
+
+        {/* <div className="content__image"> */}
+          {/* <ImageProfile /> */}
+          {/* <Details>
             <Summary>
               <div className="content__image__button">Alterar Foto</div>
             </Summary>
             <Modal title="Alterar Foto">
               <FormModal />
             </Modal>
-          </Details>
-        </div>
+          </Details> */}
+        {/* </div> */}
         <div className="content__form">
           <Form />
         </div>
