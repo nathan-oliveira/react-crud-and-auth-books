@@ -26,6 +26,11 @@ interface UseFormProps {
   required?: boolean;
 }
 
+export const validateFile = (type: string) => {
+  if (!type) return false;
+  return types.file.mimeTypes.includes(type);
+}
+
 const useForm = (props: UseFormProps = { type: '', required: true }): any => {
   const type = props?.type ?? '';
   const required = props?.required ?? true;
@@ -42,7 +47,7 @@ const useForm = (props: UseFormProps = { type: '', required: true }): any => {
     if ((target.value === null || target.value?.length === 0) && required === true) {
       setError('Preencha um valor.' as any);
       return false;
-    } else if (type === 'file' && types.file && !types.file.mimeTypes.includes(target?.type)) {
+    } else if (type === 'file' && !validateFile(target?.type)) {
       setError(types[type].message);
       return false;
     } else if (type !== 'file' && types[type] && !types[type].regex.test(target?.value)) {
