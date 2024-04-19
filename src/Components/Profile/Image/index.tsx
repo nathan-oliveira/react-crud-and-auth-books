@@ -39,7 +39,7 @@ const Image = ({ uploadFile, value }: any) => {
     if (validateFile(file.type)) {
       uploadFile(file);
     } else {
-      // alert arquivo invalido
+      // alert arquivo inválido
     }
   }
 
