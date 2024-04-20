@@ -15,8 +15,9 @@ import ImageProfile from './Image'
 
 const Profile = () => {
   const { data: dataFile, request: getFile } = useFetch('blob');
-  const { error: errorUpload, data: dataUpload, request: uploadFile } = useFetch();
+  const { loading: loadingUpload, error: errorUpload, data: dataUpload, request: uploadFile } = useFetch();
   const { data: dataUser } = useSelector((state: any) => state.user);
+  const [successUpload, setSuccessUpload] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -24,6 +25,13 @@ const Profile = () => {
     const { url, options } = GET_PROFILE_PHOTO(dataUser.token);
     getFile(url, options);
   }, [dataUpload, dataUser.token, getFile]);
+  
+  React.useEffect(() => {
+    if (!loadingUpload && !errorUpload && dataUpload) {
+      setSuccessUpload(true);
+      setTimeout(() => setSuccessUpload(false), 500);
+    }
+  }, [loadingUpload, errorUpload]);
   
   async function uploadPhoto(file: any) {
     const { url, options } = PATCH_PROFILE_PHOTO({ file, token: dataUser.token })
@@ -37,12 +45,18 @@ const Profile = () => {
       <Head title="Minha Conta" />
       <Breadcrumb title="Minha Conta" path="Informações de Usuário" />
 
-      <div className="content__page animeLeft">
-        <div>
-          <ImageProfile uploadFile={uploadPhoto} value={dataFile} />
+      <div className="content__page">
+        <div className="menu__pages animeLeft">
+          <ImageProfile 
+            uploadFile={uploadPhoto} 
+            value={dataFile}
+            success={successUpload}
+            error={errorUpload}
+            loading={loadingUpload}
+          />
         </div>
 
-        <div className="content__form">
+        <div className="content__body">
           <Form />
         </div>
       </div>

@@ -1,13 +1,18 @@
 import React from 'react'
 
-import { MdCloudUpload } from "react-icons/md";
+import { MdFileUpload } from 'react-icons/md';
+import { LuCheckCircle2 } from 'react-icons/lu';
+
+import useMedia from 'Hooks/useMedia';
 import Avatar from 'Assets/img/avatar.png'
 import { validateFile } from 'Hooks/useForm';
+import If from 'Components/Templates/Operator/If';
 
-const Image = ({ uploadFile, value }: any) => {
+const Image = ({ uploadFile, value, success, loading, error }: any) => {
   const [photo, setPhoto] = React.useState(Avatar);
   const [dragging, setDragging] = React.useState(false);
   const inputFileRef: any = React.useRef(null)
+  const mobile = useMedia('(max-width: 800px)');
 
   React.useEffect(() => {
     let objectUrl: any;
@@ -36,7 +41,7 @@ const Image = ({ uploadFile, value }: any) => {
 
   function emitFile(e: any) {
     const file = e.target.files[0];
-    if (validateFile(file.type)) {
+    if (validateFile(file?.type)) {
       uploadFile(file);
     } else {
       // alert arquivo inválido
@@ -50,7 +55,50 @@ const Image = ({ uploadFile, value }: any) => {
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
     >
-      <img src={photo} alt="Foto de Perfil" />
+      <div className="content__image__body">
+        <If test={!mobile}>
+          <img src={photo} alt="Foto de Perfil" />
+        </If>
+        <If test={mobile}>
+          <img
+            src={photo} 
+            alt="Foto de Perfil" 
+            onClick={() => {
+              if (inputFileRef.current && !success) inputFileRef.current.click();
+            }}
+          />
+        </If>
+        
+        <If test={mobile}>
+          <span className="content__image__send_mobile">
+            <If test={!success}>
+              <MdFileUpload 
+                onClick={() => {
+                  if (inputFileRef.current) inputFileRef.current.click();
+                }}
+              />
+            </If>
+
+            <If test={success}>
+              <LuCheckCircle2 />
+            </If>
+          </span>
+        </If>
+      </div>
+      
+
+      <If test={loading}>
+        <div className="content__image__loading">
+          <span className="loading__infinite"></span>
+        </div>
+      </If>
+     
+      <If test={success}>
+        <div className="content__image__success">
+          <LuCheckCircle2 />
+        </div>
+      </If>
+     
       <div className="content__image_display">
         <input
           type="file" 
@@ -61,7 +109,8 @@ const Image = ({ uploadFile, value }: any) => {
           onChange={emitFile}
         />
 
-        <MdCloudUpload 
+        
+        <MdFileUpload 
           onClick={() => {
             if (inputFileRef.current) inputFileRef.current.click();
           }}

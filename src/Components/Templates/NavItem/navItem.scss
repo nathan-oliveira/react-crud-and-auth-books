@@ -39,8 +39,7 @@
 }
 
 .navbar__item_profile_close {
-  // background: linear-gradient(180deg, #1e68cca1 40%, #1e68cca1);
-  background: #208de4;
+  background: #00a884;
   color: #fff !important;
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
@@ -50,10 +49,9 @@
 }
 
 .navbar__item_profile_open {
-  // background: linear-gradient(180deg, #1e68cca1 40%, #1e68cca1);
   color: #fff !important;
-  // background: #208de4;
-  background: linear-gradient(90deg, #1a76bf 20%, #208de4 100%);
+  // background: linear-gradient(90deg, #1a76bf 20%, #208de4 100%);
+  background: linear-gradient(90deg, #018e70 20%, #00a884 100%);
   border-bottom-left-radius: 24px;
   border-bottom-right-radius: 24px;
   height: 64px !important;
@@ -250,7 +248,7 @@ svg.chevron-up {
 }
 
 .navbar__logout:hover {
-  background: #1a75bf5b;
+  background: #018e7075;
   transition: background 0.5;
 }
 

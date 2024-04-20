@@ -46,7 +46,8 @@
 }
 
 .logo_close_web {
-  background: #208de4;
+  // background: #208de4;
+  background: #00a884;
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   width: 60px;
@@ -56,8 +57,7 @@
 
 .logo_open_web {
   // background: linear-gradient(180deg, #1e68cca1 40%, #1e68cca1);
-  background: linear-gradient(90deg, #1a76bf 20%, #208de4 100%);
-  // background: #208de4;
+  background: linear-gradient(90deg, #018e70 20%, #00a884 100%);
   border-top-left-radius: 24px;
   border-top-right-radius: 24px;
   width: 256px !important;

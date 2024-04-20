@@ -6,5 +6,7 @@
 }
 
 .row__button_right {
-  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }

@@ -3,8 +3,8 @@
   padding: var(--padding-global);
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.30);
   z-index: 2;
-  // background: #208de4;
-  background: linear-gradient(90deg, #208de4 50%, #1a76bf 100%);
+  // background: linear-gradient(90deg, #208de4 50%, #1a76bf 100%);
+  background: linear-gradient(90deg, #00a884 50%, #018e70 100%);
 }
 
 .navbar {
@@ -37,7 +37,8 @@
       display: flex;
       padding: 7px 0px 7px 13px;
       border-radius: 15px;
-      min-width: 220px;
+      // min-width: 220px;
+      min-width: 268px;
       box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
       cursor: text;
 
@@ -48,6 +49,7 @@
 
       input.navbar__items_search_input {
         border: none;
+        min-width: 223px;
       }
     }
   }

@@ -174,10 +174,18 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
         </If>
 
         <If test={!expanded}>
-          <FaCaretDown onClick={() => showExpanded()}/>
+          <FaCaretDown 
+            onClick={() => {
+              if (!expanded) showExpanded()
+            }}
+          />
         </If>
         <If test={expanded}>
-          <FaCaretUp onClick={() => showExpanded()}/>
+          <FaCaretUp 
+            onClick={() => {
+              if (!expanded) showExpanded()
+            }}
+          />
         </If>
 
         <If test={valueEye !== '' && valueEye !== null && !expanded}>

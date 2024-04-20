@@ -64,7 +64,7 @@ const Form = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="form" autoComplete="off">
+    <form onSubmit={handleSubmit} className="form animeLeft" autoComplete="off">
       <Row>
         <Grid cols="12">
           <Input
@@ -120,11 +120,11 @@ const Form = () => {
       </Row>
       <RowButton classRow="row__button_right">
         <If test={loading}>
-          <Button disabled>Atualizando...</Button>
+          <Button color="green" disabled>Atualizando...</Button>
         </If>
 
         <If test={!loading}>
-          <Button>Atualizar</Button>
+          <Button color="green">Atualizar</Button>
         </If>
       </RowButton>
     </form>

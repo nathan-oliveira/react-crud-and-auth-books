@@ -129,7 +129,7 @@ const Form = (): any => {
         </Grid>
       </Row>
 
-      <RowButton>
+      <RowButton classRow={!(data && id)? 'row__button_right' : ''}>
         <If test={data && id}>
           <Switch name="active" {...active} />
           {/* <Active label={true} name="active" {...active} /> */}

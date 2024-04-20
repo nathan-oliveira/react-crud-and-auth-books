@@ -85,7 +85,7 @@ const Listing = () => {
                 { key: 'title', title: 'Título' },
                 { key: 'description', title: 'Descrição' },
                 { key: 'active', title: 'Ativo' },
-                { key: 'actions', title: '', width: 10 },
+                { key: 'actions', title: '', width: 19 },
               ]}
             >
               <BookExpand slot="form" />
