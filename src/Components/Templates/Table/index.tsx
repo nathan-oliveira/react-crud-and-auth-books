@@ -75,29 +75,30 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
       </If>
 
       <If test={mobile}>
-        {(keys.length > 0) ? (
-          dataTable.map(
-            (record: any, index: number) => (
-              <RowCard 
-                key={record.id} 
-                record={record} 
-                deletePost={deletePost} 
-                getPost={getPost}
-                head={head}
-                tableHead={headValue} 
-                isExpand={!!isExpand} 
-                isPair={(index + 1) % 2 === 0}
-              >
-                {children}
-              </RowCard>
+        <div className="table">
+          {(keys.length > 0) ? (
+            dataTable.map(
+              (record: any, index: number) => (
+                <RowCard 
+                  key={record.id} 
+                  record={record} 
+                  deletePost={deletePost} 
+                  getPost={getPost}
+                  head={head}
+                  tableHead={headValue} 
+                  isExpand={!!isExpand} 
+                  isPair={(index + 1) % 2 === 0}
+                >
+                  {children}
+                </RowCard>
+              )
             )
-          )
-        ) : (
-          <tr>
-            <td className="table__notItem">Nenhum registro encontrado.</td>
-          </tr>
-        )}
-        {/* card aqui?? */}
+          ) : (
+            <tr>
+              <td className="table__notItem">Nenhum registro encontrado.</td>
+            </tr>
+          )}
+        </div>
       </If>
     </React.Fragment>
   )

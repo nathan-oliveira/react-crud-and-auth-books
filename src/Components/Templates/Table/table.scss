@@ -83,40 +83,6 @@
       td {
         padding: 5px 15px;
 
-        button {
-          border: none;
-          cursor: pointer;
-          border-radius: 5px;
-          padding: 1px 4.5px 2px 5px;
-          text-align: center;
-          justify-content: center;
-          display: flex;
-          transition: all .3s;
-        }
-
-        button:hover {
-          transform: scale(1.05);
-        }
-
-        .table__action__trash {
-          background: #b20704;
-          margin-left: 6px;
-
-          svg {
-            color: #fff;
-            width: 18px;
-          }
-        }
-
-        .table__action__edit {
-          background: #303132;
-
-          svg {
-            color: #fff;
-            width: 18px;
-          }
-        }
-
         p {
           text-align: center;
         }
@@ -168,5 +134,41 @@
 
   .switch {
     // margin-right: 2px;
+  }
+}
+
+button.table__action__edit,
+button.table__action__trash {
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 1px 4.5px 2px 5px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  transition: all .3s;
+}
+
+button.table__action__edit:hover,
+button.table__action__trash:hover {
+  transform: scale(1.05);
+}
+
+.table__action__trash {
+  background: #b20704;
+  margin-left: 6px;
+
+  svg {
+    color: #fff;
+    width: 18px;
+  }
+}
+
+.table__action__edit {
+  background: #303132;
+
+  svg {
+    color: #fff;
+    width: 18px;
   }
 }

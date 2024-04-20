@@ -27,7 +27,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
   const childrenToRender = React.Children.map(expandChildren, (child, childIndex) => {
     if (child.props.slot === 'form') {
       return (
-        <div className="table__row__expanded_form">
+        <div className="table__row__expanded_form table__row__expanded_form_card">
           {React.cloneElement(child, {
             identifier: `form_${childIndex}`,
             record,
@@ -77,28 +77,14 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
   });
 
   const resizeExpanded = React.useCallback(() => {
-    const headSelected = document.querySelector('.table__thead');
-    if (!headSelected) return;
-    const headRows = headSelected.childNodes[0]?.childNodes;
-    const isRows = headRows && headRows.length;
-    if (!isRows) return;
-
-    const rowsExpanded: any = document.querySelector('.table__row__expanded')?.childNodes;
-    const isExpanded = rowsExpanded && rowsExpanded.length;
-    if (!isExpanded) return;
-
-    headRows.forEach((el: any, index: any) => {
-      if (index === 0) {
-        const math = Math.ceil(22 / headRows.length);
-        rowsExpanded[index].width = `${el.clientWidth + math}px`;
-        rowsExpanded[index].style.paddingLeft = '25px';
-      } else {
-        rowsExpanded[index].width = `${el.clientWidth}px`;
-        rowsExpanded[index].style.paddingLeft = '19px';
+    if (expand) {
+      const expandedCard = document.getElementsByClassName('table__row__expanded table__row__expanded__card');
+      if (expandedCard && expandedCard[0]) {
+        const cardExpandedHeight = expandedCard[0].clientHeight
+        const cardExpandedOld: any = document.getElementsByClassName('table__row__card table__row__card__old')
+        if (cardExpandedOld && cardExpandedOld[0]) cardExpandedOld[0].style.height = `${cardExpandedHeight}px`
       }
-
-      rowsExpanded[index].style.paddingTop = '7px';
-    })
+    }
   }, [expand, menu, mobile]);
 
   const resizeOffsetRows = React.useCallback(() => {
@@ -136,7 +122,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
     setExpand((value) => !value);
   }
 
-  console.log(tableHead)
+  // table__row__expanded__card
 
   if (record !== '')
     return (
@@ -161,15 +147,15 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
           {(tableHead && Object.keys(tableHead).includes('actions')) && (
             <>
               <If test={!expand}>
-                <div className="table__action" key={Math.round(Math.random() * 5e20)}>
-                  <div className="table__action___button">
+                <div className="table__action table__action__card" key={Math.round(Math.random() * 5e20)}>
+                  <div className="table__action___button table__action___button__card">
                     {childrenActionsToRender && (childrenActionsToRender)}
                   </div>
                 </div>
               </If>
               <If test={expand}>
-                <div className="table__action" key={Math.round(Math.random() * 5e20)}>
-                  <div className="table__action___button"></div>
+                <div className="table__action__card" key={Math.round(Math.random() * 5e20)}>
+                  <div className="table__action___button table__action___button__card"></div>
                 </div>
               </If>
             </>
@@ -199,8 +185,8 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
             })}
 
             {(tableHead && Object.keys(tableHead).includes('actions')) && (
-              <div className="table__action__card" key={Math.round(Math.random() * 5e20)}>
-                <div className="table__action___button__card">
+              <div className="table__action table__action__card" key={Math.round(Math.random() * 5e20)}>
+                <div className="table__action___button table__action___button__card">
                   {childrenActionsToRender && (childrenActionsToRender)}
                 </div>
               </div>
