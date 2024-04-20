@@ -1,0 +1,26 @@
+.table__row__card {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  background: #fff !important;
+  padding: 13px;
+  border-radius: 20px;
+  margin-bottom: 15px;
+}
+
+.table__row__expanded__card {
+  z-index: 2;
+  padding: 14px;
+  border-radius: 20px !important;
+}
+
+.table__row__expanded__card__row {
+  display: flex;
+  align-items: center;
+
+  .table__row__expanded__card__title {
+    margin-right: 10px;
+  }
+}
+
+.table__row__card__old {
+  pointer-events: none !important;
+}

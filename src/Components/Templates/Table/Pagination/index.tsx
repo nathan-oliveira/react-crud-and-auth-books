@@ -10,12 +10,14 @@ import { TbChevronLeft } from "react-icons/tb";
 import { TbChevronRight } from "react-icons/tb";
 
 import If from 'Components/Templates/Operator/If';
+import useMedia from 'Hooks/useMedia';
 
 const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, search, setDataTable, oldPaginate }: any) => {
   const [qtdPage, setQtdPage] = React.useState(0);
   const [rowPages, setRowPages] = React.useState([]);
   const [optionsLimit, setOptionsLimit] = React.useState([10, 20, 30, 40]);
   const [intervalPage, setIntervalPage] = React.useState('');
+  const mobile = useMedia('(max-width: 800px)');
 
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -90,25 +92,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
 
   return (
     <div className="table__pagination">
-      <ul>
-        {limit && (
-          <div className="table__pagination_limit">
-            <span>Linhas por página:</span>
-            <select
-              id="limit"
-              name="limit"
-              onChange={(event) => changeLimit(event.target.value ? Number(event.target.value) : limit)}
-              value={limit}
-            >
-              {optionsLimit.map((value) => (
-                <option value={value} key={value}>{value}</option>
-              ))}
-            </select>
-          </div>
-        )}
-      </ul>
-      <ul className="total">{intervalPage}</ul>
-      <If test={!!oldPaginate}>
+      <If test={mobile || !!oldPaginate}>
         <ul className="pagination">
           <li className="page__button"
             onClick={() => {
@@ -129,7 +113,32 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
           >&#8680;</li>
         </ul>
       </If>
-      <If test={!oldPaginate}>
+
+      <If test={!oldPaginate && !mobile}>
+        <ul>
+          {limit && (
+            <div className="table__pagination_limit">
+              <span>Linhas por página:</span>
+              <select
+                id="limit"
+                name="limit"
+                onChange={(event) => changeLimit(event.target.value ? Number(event.target.value) : limit)}
+                value={limit}
+              >
+                {optionsLimit.map((value) => (
+                  <option value={value} key={value}>{value}</option>
+                ))}
+              </select>
+            </div>
+          )}
+        </ul>
+      </If>
+
+      <If test={!oldPaginate && !mobile}>
+        <ul className="total">{intervalPage}</ul>
+      </If>
+     
+      <If test={!oldPaginate && !mobile}>
         <ul className="pagination pagination__new">
           <li className="pagination__new__pad" 
             onClick={() => {
