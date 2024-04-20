@@ -30,24 +30,28 @@ const Listing = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const headerTable = [
+    { key: 'title', title: 'Título' },
+    { key: 'description', title: 'Descrição' },
+    { key: 'active', title: 'Ativo' },
+    { key: 'actions', title: '', width: 19 },
+  ];
+
   const { token } = useSelector((state: any) => state.user.data)
   const { total, data, loading, error, request } = useFetch()
   const { request: requestDelete } = useFetch()
 
   React.useEffect(() => {
-    function find() {
-      const { url, options } = GET_BOOKS(token)
-      const params: any = {
-        search: querySearch,
-        page: page.toString(),
-        limit: limit.toString(),
-        orderBy: JSON.stringify(orderBy),
-        active,
-      };
-      request(`${url}?${new URLSearchParams(params).toString()}`, options);
-    }
+    const { url, options } = GET_BOOKS(token)
+    const params: any = {
+      search: querySearch,
+      page: page.toString(),
+      limit: limit.toString(),
+      orderBy: JSON.stringify(orderBy),
+      active,
+    };
 
-    find()
+    request(`${url}?${new URLSearchParams(params)}`, options);
   }, [page, limit, querySearch, token, orderBy, active, request])
 
   async function deleteBook(id: string) {
@@ -72,7 +76,12 @@ const Listing = () => {
       {(data !== null) ? (
         <div className="content__body">
           <ModalDelete handlerSubmit={deleteBook} />
-          <TableWrapper changeActive={(value: boolean) => setActive(value)}>
+          <TableWrapper
+            changeActive={(value: boolean) => setActive(value)} 
+            setOrderBy={setOrderBy} 
+            orderBy={orderBy}
+            orderByItems={headerTable}
+          >
             <Table
               dataTable={dataTable}
               loading={loading}
@@ -81,12 +90,7 @@ const Listing = () => {
               setOrderBy={setOrderBy}
               orderBy={orderBy}
               isExpand
-              head={[
-                { key: 'title', title: 'Título' },
-                { key: 'description', title: 'Descrição' },
-                { key: 'active', title: 'Ativo' },
-                { key: 'actions', title: '', width: 19 },
-              ]}
+              head={headerTable}
             >
               <BookExpand slot="form" />
               <BookTitleTag slot="title" />

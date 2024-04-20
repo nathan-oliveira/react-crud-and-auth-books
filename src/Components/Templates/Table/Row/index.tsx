@@ -23,6 +23,13 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
     .map((child: any) => child.props.slot)
     .filter((value: string) => value !== 'actions');
 
+  function expandRow() {
+    if (!isExpand) return;
+    const rowsExpanded: any = document.querySelector('.table__row__expanded');
+    if (rowsExpanded && !expand) rowsExpanded.childNodes[0].click();
+    setExpand((value) => !value);
+  }
+
   const childrenToRender = React.Children.map(expandChildren, (child, childIndex) => {
     if (child.props.slot === 'form') {
       return (
@@ -30,6 +37,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
           {React.cloneElement(child, {
             identifier: `form_${childIndex}`,
             record,
+            close: () => expandRow(),
           })}
         </td>
       )
@@ -101,13 +109,6 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
       });
     };
   }, [expand, menu, resizeOffsetRows]);
-
-  function expandRow() {
-    if (!isExpand) return;
-    const rowsExpanded: any = document.querySelector('.table__row__expanded');
-    if (rowsExpanded && !expand) rowsExpanded.childNodes[0].click();
-    setExpand((value) => !value);
-  }
 
   if (record !== '')
     return (

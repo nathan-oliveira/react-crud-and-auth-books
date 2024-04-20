@@ -172,3 +172,20 @@ button.table__action__trash:hover {
     width: 18px;
   }
 }
+
+.table__card_filters_order_mobile {
+  margin-right: 10px;
+  display: flex;
+  font-size: 0.9rem;
+  align-items: center;
+
+  span {
+    font-size: 0.9rem;
+  }
+
+  select {
+    border-radius: 10px;
+    max-width: 73px;
+    height: 19px;
+  }
+}

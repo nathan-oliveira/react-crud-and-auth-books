@@ -24,6 +24,13 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
     .map((child: any) => child.props.slot)
     .filter((value: string) => value !== 'actions');
 
+  function expandRow() {
+    if (!isExpand) return;
+    const rowsExpanded: any = document.querySelector('.table__row__expanded');
+    if (rowsExpanded && !expand) rowsExpanded.childNodes[0].click();
+    setExpand((value) => !value);
+  }
+  
   const childrenToRender = React.Children.map(expandChildren, (child, childIndex) => {
     if (child.props.slot === 'form') {
       return (
@@ -31,6 +38,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
           {React.cloneElement(child, {
             identifier: `form_${childIndex}`,
             record,
+            close: () => expandRow(),
           })}
         </div>
       )
@@ -68,7 +76,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
           <span className="table__row__expanded__card__title">{ tableHead[key] }:</span>
           {React.cloneElement(child, {
             identifier: `${child.props.slot}_${childIndex}_${Math.round(Math.random() * 5e20)}`,
-            items: { record, key, title: tableHead[key] },
+            items: { record, key },
           })}
         </div>
       )
@@ -115,34 +123,27 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
     };
   }, [expand, menu, resizeOffsetRows]);
 
-  function expandRow() {
-    if (!isExpand) return;
-    const rowsExpanded: any = document.querySelector('.table__row__expanded');
-    if (rowsExpanded && !expand) rowsExpanded.childNodes[0].click();
-    setExpand((value) => !value);
-  }
-
-  // table__row__expanded__card
-
   if (record !== '')
     return (
       <>
         <div className={`${expand ? 'table__row__expanded table__row__expanded__card' : 'table__row__card'}`} key={record.id}>
-          {orderKeys.map((key) => {
-            if (tableHead[key]) indexRow = indexRow + 1;
-            return (
-              tableHead[key] && (
-                <div onClick={() => expandRow()} key={key} className={`table__col${indexRow}`}>
-                  <If test={childList.includes(key)}>
-                    {childExpandedToRender(key)}
-                  </If>
-                  <If test={!childList.includes(key)}>
-                    {activeOrInativeToRender(key)}
-                  </If>
-                </div>
+          <div className={`${expand ? 'table__row__expanded__card_info' : 'table__row__card_info'}`}>
+            {orderKeys.map((key) => {
+              if (tableHead[key]) indexRow = indexRow + 1;
+              return (
+                tableHead[key] && (
+                  <div onClick={() => expandRow()} key={key} className={`table__col${indexRow}`}>
+                    <If test={childList.includes(key)}>
+                      {childExpandedToRender(key)}
+                    </If>
+                    <If test={!childList.includes(key)}>
+                      {activeOrInativeToRender(key)}
+                    </If>
+                  </div>
+                )
               )
-            )
-          })}
+            })}
+          </div>
 
           {(tableHead && Object.keys(tableHead).includes('actions')) && (
             <>

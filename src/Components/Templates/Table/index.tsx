@@ -9,7 +9,7 @@ import Switch from 'Components/Templates/Form/Switch'
 import If from '../Operator/If'
 import useMedia from 'Hooks/useMedia'
 
-export const TableWrapper = ({ children, changeActive }: any) => {
+export const TableWrapper = ({ children, orderByItems, orderBy, setOrderBy, changeActive }: any) => {
   const [active, setActive] = React.useState(true);
   const mobile = useMedia('(max-width: 800px)');
 
@@ -18,10 +18,43 @@ export const TableWrapper = ({ children, changeActive }: any) => {
     setActive(value);
   }
 
+  function handlerOrderBy(value: any) {
+    setOrderBy(value);
+  }
+
   return (
-    <>
+    <div>
       <If test={changeActive}>
         <div className="animeLeft table__filters">
+          <If test={mobile}>
+            <div className="table__card_filters_order_mobile">
+              <span>Ordenação por&nbsp;</span>
+             
+              <select
+                id="orderValue"
+                name="orderValue"
+                value={orderBy.column}
+                onChange={(event) => handlerOrderBy({ ...orderBy, column: event.target.value })}
+              >
+                {orderByItems
+                  .filter((item: any) => !item.key.includes('actions') && !item.key.includes('active'))
+                  .map((item: any) => (
+                  <option value={item.key} key={item.key}>{item.title}</option>
+                ))}
+              </select>
+              <span>&nbsp; de &nbsp;</span>
+             
+              <select
+                id="orderKey"
+                name="orderKey"
+                value={orderBy.order}
+                onChange={(event) => handlerOrderBy({ ...orderBy, order: event.target.value })}
+              >
+                <option value="ASC">A-Z</option>
+                <option value="DESC">Z-A</option>
+              </select>
+            </div>
+          </If>
           <Switch name="active" value={active} onChange={(e: any) => handlerActive(e.target.value)} />
         </div>
       </If>
@@ -29,7 +62,7 @@ export const TableWrapper = ({ children, changeActive }: any) => {
       <div className={mobile ? 'animeLeft' : 'animeLeft table_wrapper'}>
         {children}
       </div>
-    </>
+    </div>
   );
 };
 

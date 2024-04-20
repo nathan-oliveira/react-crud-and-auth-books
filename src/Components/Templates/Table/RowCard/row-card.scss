@@ -26,7 +26,12 @@
 }
 
 .table__row__expanded_form_card {
-  padding-top: 8px;
-  border-top: 1px solid #c3c3c3;
+  // border-top: 1px solid #c3c3c3;x
   margin-top: 8px;
+}
+
+.table__row__expanded__card_info {
+  border: 1px solid #c3c3c3;
+  padding: 10px;
+  border-radius: 17px;
 }
