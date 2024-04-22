@@ -2,7 +2,7 @@ import React from 'react'
 import './profile.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { GET_PROFILE_PHOTO } from 'Services/api'
+import { DELETE_PHOTO_PROFILE, GET_PROFILE_PHOTO } from 'Services/api'
 import { PATCH_PROFILE_PHOTO } from 'Services/api'
 import { updatePhoto } from 'Store/user/user'
 import useFetch from 'Hooks/useFetch'
@@ -16,8 +16,10 @@ import ImageProfile from './Image'
 const Profile = () => {
   const { data: dataFile, request: getFile } = useFetch('blob');
   const { loading: loadingUpload, error: errorUpload, data: dataUpload, request: uploadFile } = useFetch();
+  const { loading: loadingDeletePhoto, error: errorDeletePhoto, request: deletePhoto } = useFetch();
   const { data: dataUser } = useSelector((state: any) => state.user);
   const [successUpload, setSuccessUpload] = React.useState(false);
+  const [successRemovedPhoto, setSuccessRemovedPhoto] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -40,6 +42,15 @@ const Profile = () => {
     if (errorUpload) alert(errorUpload)
   }
 
+  async function removePhoto() {
+    const { url, options } = DELETE_PHOTO_PROFILE({ token: dataUser.token })
+    const { response }: any = await deletePhoto(url, options);
+    if (response.ok) {
+      setSuccessRemovedPhoto(true);
+      setTimeout(() => setSuccessRemovedPhoto(false), 500);
+    }
+  }
+
   return (
     <section>
       <Head title="Minha Conta" />
@@ -49,10 +60,12 @@ const Profile = () => {
         <div className="menu__pages animeLeft">
           <ImageProfile 
             uploadFile={uploadPhoto} 
+            deleteFile={removePhoto}
             value={dataFile}
             success={successUpload}
             error={errorUpload}
             loading={loadingUpload}
+            removed={successRemovedPhoto}
           />
         </div>
 

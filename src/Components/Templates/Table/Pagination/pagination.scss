@@ -40,6 +40,16 @@
   padding: 0px 10px 0px 10px;
 }
 
+.page__button_left {
+  padding-left: 7px !important;
+  padding-right: 8px !important;
+}
+
+.page__button_right {
+  padding-left: 8px !important;
+  padding-right: 7px !important;
+}
+
 .page__link {
   padding: 0px 12px 0px 12px;
 }
@@ -55,18 +65,22 @@
 }
 
 .page__link__active {
-  background: #292929;
+  background: #00a884; 
   color: #fff;
-  border: 1px solid #292929;
+  border: 1px solid #00a884;
 }
 
 .pagination .page__button:hover,
 .pagination .page__link:hover {
-  background: #292929;
-  color: #fff;
+  background: #00a884; 
+  color: #fff !important;
+
+  .pagination__icons {
+    color: #fff !important;
+  }
 }
 
-@media (max-width: 477px) {
+@media (max-width: 800px) {
   .table__pagination,
   .pagination {
     display: flex;

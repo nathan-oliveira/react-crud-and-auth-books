@@ -16,9 +16,9 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
   const [limit, setLimit] = React.useState(6);
   const [timeoutSearch, setTimeoutSearch] = React.useState(null);
   const [search, setSearch] = React.useState('');
-
   const [expanded, setExpanded] = React.useState(false);
   const [valueEye, setValueEye] = React.useState('');
+  const refSelect: any = React.useRef(null);
 
   const { token } = useSelector((state: any) => state.user.data)
   const { 
@@ -164,6 +164,7 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
           value={!expanded ? valueEye : search}
           placeholder={!expanded ? ' ': 'Pesquisar'}
           readOnly={!expanded}
+          ref={refSelect}
         />
 
         <If test={!expanded}>
@@ -174,18 +175,14 @@ const SelectLazy = ({ GET, orderBy, label, name, error, onBlur, prop, onChange, 
         </If>
 
         <If test={!expanded}>
-          <FaCaretDown 
-            onClick={() => {
-              if (!expanded) showExpanded()
-            }}
-          />
+          <FaCaretDown onClick={() => {
+            if (!expanded) showExpanded()
+          }} />
         </If>
         <If test={expanded}>
-          <FaCaretUp 
-            onClick={() => {
-              if (!expanded) showExpanded()
-            }}
-          />
+          <FaCaretUp onClick={() => {
+            if (!expanded) showExpanded()
+          }} />
         </If>
 
         <If test={valueEye !== '' && valueEye !== null && !expanded}>

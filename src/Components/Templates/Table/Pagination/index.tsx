@@ -94,23 +94,27 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
     <div className="table__pagination">
       <If test={mobile || !!oldPaginate}>
         <ul className="pagination">
-          <li className="page__button"
+          <li className="page__button page__button_left"
             onClick={() => {
               descPage(page);
               calculatePageInterval(page, total, limit);
             }}
-          >&#8678;</li>
+          >
+            <TbChevronLeftPipe className="pagination__icons" />
+          </li>
           {search === '' ? (
             rowPages
           ) : (
               <li className="page__link page__link__active">1</li>
             )}
-          <li className="page__button"
+          <li className="page__button page__button_right"
             onClick={() => {
               incPage(page);
               calculatePageInterval(page, total, limit);
             }} 
-          >&#8680;</li>
+          >
+            <TbChevronRightPipe className="pagination__icons" />
+          </li>
         </ul>
       </If>
 

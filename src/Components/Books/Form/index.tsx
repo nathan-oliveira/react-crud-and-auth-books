@@ -60,8 +60,8 @@ const Form = (): any => {
     event.preventDefault();
 
     const isValidated = title.validate() && 
-      description.validate() && 
-      (dataUser.rule === 2 ? userId.validate() : true);
+      (dataUser.rule === 2 ? userId.validate() : true) && 
+      description.validate();
 
     if (!isValidated) return;
 

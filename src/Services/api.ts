@@ -64,6 +64,19 @@ export function GET_PROFILE(token: any) {
   }
 }
 
+export function DELETE_PHOTO_PROFILE({ token }: any) {
+  return {
+    url: `${URL_API}/profile/photo`,
+    options: {
+      method: 'DELETE',
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      },
+    }
+  }
+}
+
+
 export function PUT_PROFILE(formData: any, token: any) {
   return {
     url: `${URL_API}/profile`,

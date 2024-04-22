@@ -1,3 +1,7 @@
+.content__image_display_delete {
+  display: none;
+}
+
 .content__image {
   text-align: center;
   margin-top: 2px;
@@ -48,7 +52,6 @@
       color: #fff;
     }
 
-    
     &:hover {
       svg {
         transform: translateY(-10px);
@@ -57,10 +60,30 @@
     }
   }
 
-  &:hover .content__image_display {
-    display: flex;
-  }
+  &:hover {
+    .content__image_display {
+      display: flex;
+    }
 
+    .content__image_display_delete {
+      margin-top: -15%;
+      text-align: center;
+      justify-content: center;
+      display: flex;
+      align-items: center;
+
+      svg {
+        z-index: 3;
+        height: 23px;
+        width: 23px;
+        color: white;
+        cursor: pointer !important;
+        &:hover {
+          color: #d50000f0;
+        }
+      }
+    }
+  }
   img {
     border-radius: 50%;
     box-shadow: 0px 0px 2px 0px rgba(50, 50, 50, 0.45);

@@ -26,7 +26,7 @@ const Row = ({ children: expandChildren, record, getPost, deletePost, tableHead,
 
   function expandRow() {
     if (!isExpand) return;
-    const rowsExpanded: any = document.querySelector('.table__row__expanded');
+    const rowsExpanded: any = document.querySelector('.table__row__expanded__card_info');
     if (rowsExpanded && !expand) rowsExpanded.childNodes[0].click();
     setExpand((value) => !value);
   }

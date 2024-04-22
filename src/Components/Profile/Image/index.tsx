@@ -2,14 +2,15 @@ import React from 'react'
 
 import { MdFileUpload } from 'react-icons/md';
 import { LuCheckCircle2 } from 'react-icons/lu';
+import { MdDelete } from "react-icons/md";
 
 import useMedia from 'Hooks/useMedia';
 import Avatar from 'Assets/img/avatar.png'
 import { validateFile } from 'Hooks/useForm';
 import If from 'Components/Templates/Operator/If';
 
-const Image = ({ uploadFile, value, success, loading, error }: any) => {
-  const [photo, setPhoto] = React.useState(Avatar);
+const Image = ({ uploadFile, deleteFile, value, success, loading, removed, error }: any) => {
+  const [photo, setPhoto] = React.useState(null);
   const [dragging, setDragging] = React.useState(false);
   const inputFileRef: any = React.useRef(null)
   const mobile = useMedia('(max-width: 800px)');
@@ -22,6 +23,10 @@ const Image = ({ uploadFile, value, success, loading, error }: any) => {
     }
     return () => { if (objectUrl) URL.revokeObjectURL(objectUrl) }
   }, [value]);
+
+  React.useEffect(() => {
+    if (removed) setPhoto(null);
+  }, [removed]);
 
   const handleDragOver = (e: any) => {
     e.preventDefault();
@@ -57,11 +62,11 @@ const Image = ({ uploadFile, value, success, loading, error }: any) => {
     >
       <div className="content__image__body">
         <If test={!mobile}>
-          <img src={photo} alt="Foto de Perfil" />
+          <img src={photo ?? Avatar} alt="Foto de Perfil" />
         </If>
         <If test={mobile}>
           <img
-            src={photo} 
+            src={photo ?? Avatar} 
             alt="Foto de Perfil" 
             onClick={() => {
               if (inputFileRef.current && !success) inputFileRef.current.click();
@@ -71,12 +76,18 @@ const Image = ({ uploadFile, value, success, loading, error }: any) => {
         
         <If test={mobile}>
           <span className="content__image__send_mobile">
-            <If test={!success}>
+            <If test={!success && !photo}>
               <MdFileUpload 
                 onClick={() => {
                   if (inputFileRef.current) inputFileRef.current.click();
                 }}
               />
+            </If>
+
+            <If test={!success && photo}>
+              <div className="content__image_display_delete">
+                <MdDelete onClick={() => deleteFile()} />
+              </div>
             </If>
 
             <If test={success}>
@@ -110,12 +121,19 @@ const Image = ({ uploadFile, value, success, loading, error }: any) => {
         />
 
         
+    
         <MdFileUpload 
           onClick={() => {
             if (inputFileRef.current) inputFileRef.current.click();
           }}
         />
       </div>
+
+      <If test={photo && !mobile}>
+        <div className="content__image_display_delete">
+          <MdDelete onClick={() => deleteFile()} />
+        </div>
+      </If>
     </div>
   )
 }
