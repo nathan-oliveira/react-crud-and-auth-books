@@ -5,19 +5,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import useFetch from 'Hooks/useFetch'
 import { useSearch } from 'Hooks/useQuery';
 import { GET_BOOKS, DELETE_BOOK } from 'Services/api'
+import { openModal, closeModal } from 'Store/ui';
 
 import Error from 'Components/Helper/Error';
 import Loading from 'Components/Helper/Loading';
 import NoRegistry from 'Components/Helper/NoRegistry';
 import Table, { TableWrapper } from 'Components/Templates/Table';
 import Pagination from 'Components/Templates/Table/Pagination';
-
+import ModalDelete from 'Components/Templates/ModalDelete';
 import ActiveSlot from 'Components/Templates/Slots/Active';
+import { SnackbarMessage } from 'Components/Templates/SnackbarMessage';
+
 import BookExpand from './Slots/Expand';
 import BookActions from './Slots/Actions';
 import BookTitleTag from './Slots/TitleTag';
-import ModalDelete from './ModalDelete';
-import { openModal, closeModal } from 'Store/ui';
 
 const Listing = () => {
   const [page, setPage] = React.useState(1)
@@ -25,6 +26,7 @@ const Listing = () => {
   const [dataTable, setDataTable] = React.useState([])
   const [orderBy, setOrderBy] = React.useState({ column: 'title', order: 'DESC' })
   const [active, setActive] = React.useState(true)
+  const [messageToSnackbar, setMessageToSnackbar] = React.useState('');
 
   const querySearch = useSearch();
   const navigate = useNavigate();
@@ -52,16 +54,15 @@ const Listing = () => {
     };
 
     request(`${url}?${new URLSearchParams(params)}`, options);
-  }, [page, limit, querySearch, token, orderBy, active, request])
+  }, [page, limit, querySearch, token, orderBy, active, messageToSnackbar, request])
 
   async function deleteBook(id: string) {
     const { url, options } = DELETE_BOOK({ id, token })
     const { response }: any = await requestDelete(url, options)
 
     if (response.ok) {
-      const { url, options } = GET_BOOKS(token)
-      request(url, options)
       dispatch(closeModal())
+      setMessageToSnackbar('Registro apagado com sucesso!');
     }
   }
   
@@ -112,6 +113,12 @@ const Listing = () => {
               setDataTable={setDataTable}
             />
           </TableWrapper>
+
+          <SnackbarMessage
+            active={!!messageToSnackbar} 
+            message={messageToSnackbar} 
+            handlerClose={() => setMessageToSnackbar('')} 
+          />
         </div>
       ) : (
         <NoRegistry to="/books/create" />

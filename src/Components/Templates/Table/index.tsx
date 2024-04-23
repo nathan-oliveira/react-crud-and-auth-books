@@ -23,7 +23,7 @@ export const TableWrapper = ({ children, orderByItems, orderBy, setOrderBy, chan
   }
 
   return (
-    <div>
+    <div className="table__content">
       <If test={changeActive}>
         <div className="animeLeft table__filters">
           <If test={mobile}>

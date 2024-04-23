@@ -1,4 +1,5 @@
 import React from 'react'
+import './image-drag-drop.scss'
 
 import { MdFileUpload } from 'react-icons/md';
 import { LuCheckCircle2 } from 'react-icons/lu';
@@ -9,7 +10,7 @@ import Avatar from 'Assets/img/avatar.png'
 import { validateFile } from 'Hooks/useForm';
 import If from 'Components/Templates/Operator/If';
 
-const Image = ({ uploadFile, deleteFile, value, success, loading, removed, error }: any) => {
+const ImageDragDrop = ({ uploadFile, deleteFile, value, success, loading, removed, error }: any) => {
   const [photo, setPhoto] = React.useState(null);
   const [dragging, setDragging] = React.useState(false);
   const inputFileRef: any = React.useRef(null)
@@ -96,7 +97,6 @@ const Image = ({ uploadFile, deleteFile, value, success, loading, removed, error
           </span>
         </If>
       </div>
-      
 
       <If test={loading}>
         <div className="content__image__loading">
@@ -120,8 +120,6 @@ const Image = ({ uploadFile, deleteFile, value, success, loading, removed, error
           onChange={emitFile}
         />
 
-        
-    
         <MdFileUpload 
           onClick={() => {
             if (inputFileRef.current) inputFileRef.current.click();
@@ -138,4 +136,4 @@ const Image = ({ uploadFile, deleteFile, value, success, loading, removed, error
   )
 }
 
-export default Image
+export default ImageDragDrop

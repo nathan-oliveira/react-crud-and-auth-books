@@ -1,5 +1,4 @@
 import React from 'react'
-import './profile.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { DELETE_PHOTO_PROFILE, GET_PROFILE_PHOTO } from 'Services/api'
@@ -9,9 +8,9 @@ import useFetch from 'Hooks/useFetch'
 
 import Head from 'Components/Helper/Head'
 import Breadcrumb from 'Components/Templates/Breadcrumb'
+import ImageDragDrop from 'Components/Templates/ImageDragDrop'
 
 import Form from './Form'
-import ImageProfile from './Image'
 
 const Profile = () => {
   const { data: dataFile, request: getFile } = useFetch('blob');
@@ -58,7 +57,7 @@ const Profile = () => {
 
       <div className="content__page">
         <div className="menu__pages animeLeft">
-          <ImageProfile 
+          <ImageDragDrop 
             uploadFile={uploadPhoto} 
             deleteFile={removePhoto}
             value={dataFile}
