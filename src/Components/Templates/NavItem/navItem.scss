@@ -41,8 +41,8 @@
 .navbar__item_profile_close {
   background: #00a884;
   color: #fff !important;
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 12px; // layout-menu 24px
+  border-bottom-right-radius: 12px; // layout-menu 24px
   height: 64px !important;
   width: 60px;
   transition: width 0.5s;
@@ -52,8 +52,8 @@
   color: #fff !important;
   // background: linear-gradient(90deg, #1a76bf 20%, #208de4 100%);
   background: linear-gradient(90deg, #018e70 20%, #00a884 100%);
-  border-bottom-left-radius: 24px;
-  border-bottom-right-radius: 24px;
+  border-bottom-left-radius: 12px; // layout-menu 24px
+  border-bottom-right-radius: 12px; // layout-menu 24px
   height: 64px !important;
   width: 256px;
   transition: width 0.5s;

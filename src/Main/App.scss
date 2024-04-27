@@ -16,9 +16,10 @@ body {
   padding: 0;
   color: #333;
   font-family: "Nunito", Arial, Helvetica, sans-serif;
-  background-image: url(../Assets/img/fundo.png);
-  background-size: cover;
-  background-repeat: no-repeat;
+  // background-image: url(../Assets/img/fundo.png);
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  background: #f0f2f58f;
 }
 
 h1,
@@ -81,7 +82,7 @@ select {
 aside.sidenav,
 header.nav {
   margin: 10px 10px 0px 10px;
-  border-radius: 30px;
+  border-radius: 15px; // layout-menu 30px
 }
 
 .logo {
