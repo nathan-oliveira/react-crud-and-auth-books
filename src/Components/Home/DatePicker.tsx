@@ -128,9 +128,6 @@ const DatePicker = ({
         return;
       }
 
-      if (!selectedDate) setSelectedDate(day)
-      if (selectedDate !== day) setSelectedDateEnd(day)
-
       const dateStart = selectedDate ?? day;
       const dateEnd = !selectedDateEnd ? (selectedDate ?? day) : (selectedDateEnd !== day ? day : selectedDateEnd);
       
@@ -149,8 +146,9 @@ const DatePicker = ({
       const rangeDateOne = dayEnd >= dayStart ? dayStart : dayEnd;
       const rangeDateTwo = dayEnd >= dayStart ? dayEnd : dayStart;
 
-      console.log(rangeDateOne)
-      console.log(rangeDateTwo)
+      if ((rangeDateTwo - rangeDateOne) >= rangeMax) return;
+      if (!selectedDate) setSelectedDate(day)
+      if (selectedDate !== day) setSelectedDateEnd(day)
 
       onChange && onChange([dateStart, dateEnd])
     } else {
