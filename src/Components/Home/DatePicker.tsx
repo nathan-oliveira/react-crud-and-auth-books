@@ -113,26 +113,46 @@ const DatePicker = ({
     setYear(curYear)
   }
 
+  const resetRangeDates = () => {
+    setSelectedDate(null);
+    setSelectedDateEnd(null);
+  }
+
   const selectDate = (day: Date) => {
     setMonth(day.getMonth())
     setYear(day.getFullYear())
 
     if (range) {
       if (selectedDate && (selectedDateEnd !== selectedDate)) {
-        setSelectedDate(null)
-        setSelectedDateEnd(null)
-      } else {
-        if (!selectedDate) setSelectedDate(day)
-        if (selectedDate !== day) setSelectedDateEnd(day)
-        onChange && onChange(
-          [
-            selectedDate ?? day, 
-            !selectedDateEnd ? 
-              (selectedDate ?? day) : 
-              (selectedDateEnd !== day ? day : selectedDateEnd),
-          ]
-        )
+        resetRangeDates()
+        return;
       }
+
+      if (!selectedDate) setSelectedDate(day)
+      if (selectedDate !== day) setSelectedDateEnd(day)
+
+      const dateStart = selectedDate ?? day;
+      const dateEnd = !selectedDateEnd ? (selectedDate ?? day) : (selectedDateEnd !== day ? day : selectedDateEnd);
+      
+      const dayStart = dateStart.getDate();
+      const monthStart = dateStart.getMonth();
+      const yearStart = dateStart.getFullYear();
+      const dayEnd = dateEnd.getDate();
+      const monthEnd = dateEnd.getMonth();
+      const yearEnd = dateEnd.getFullYear();
+
+      if ((yearStart > yearEnd) || (monthStart > monthEnd) || (monthStart === monthEnd && dateStart > dateEnd)) {
+        resetRangeDates()
+        return;
+      }
+
+      const rangeDateOne = dayEnd >= dayStart ? dayStart : dayEnd;
+      const rangeDateTwo = dayEnd >= dayStart ? dayEnd : dayStart;
+
+      console.log(rangeDateOne)
+      console.log(rangeDateTwo)
+
+      onChange && onChange([dateStart, dateEnd])
     } else {
       setSelectedDate(day)
       onChange && onChange(day)
