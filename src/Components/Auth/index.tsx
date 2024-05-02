@@ -15,8 +15,9 @@ const Auth = () => {
 
   if ((data === null || data?.token === null)) 
     return (
-      <section className="content animeTop">
+      <section className="content content_page_login animeTop">
         <Head title="Autenticação" />
+        {/* <div className="content_page_login_info">image?</div> */}
         <div className="card">
           <div className="card__header">
             <h1 className={login ? "card__header__title" : "card__header__title2"}>

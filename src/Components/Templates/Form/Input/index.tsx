@@ -2,10 +2,23 @@ import React from 'react'
 import './input.scss'
 
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { IoIosClose } from "react-icons/io";
 
 import If from 'Components/Templates/Operator/If';
 
-const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) => {
+const Input = ({
+  label, 
+  type, 
+  name, 
+  value, 
+  onChange,
+  clearDatePicker, 
+  error, 
+  onBlur, 
+  max,
+  readOnly,
+  onClick,
+}: any) => {
   const [typeInput, setTypeInput] = React.useState('text');
   const [eyeText, setEyeText] = React.useState(true);
 
@@ -18,9 +31,9 @@ const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) 
   }
 
   return (
-    <div className={`input-wrapper${type === 'password' ? ' input-wrapper__password' : ''}`}>
+    <div className={`input-wrapper${type === 'password' ? ' input-wrapper__password' : ''}${type === 'date-picker' ? ' input-wrapper__date_picker': ''}`}>
       <input 
-        type={type === 'password' ? (eyeText ? 'password' : 'text') : typeInput} 
+        type={type === 'password' ? (eyeText ? 'password' : 'text') : (type === 'date-picker' ? 'text' : typeInput)} 
         className={`input input-text-default input-text${error ? ' input-text-error' : ''}`}
         id={name} 
         name={name}
@@ -30,6 +43,8 @@ const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) 
         onBlur={onBlur}
         value={type === 'file' ? '' : (value ?? '')}
         placeholder=" "
+        readOnly={readOnly}
+        onClick={onClick}
       />
       <label
         htmlFor={name} 
@@ -41,6 +56,9 @@ const Input = ({ label, type, name, value, onChange, error, onBlur, max }: any) 
       </If>
       <If test={type === 'password' && eyeText}>
         <FaEyeSlash onClick={() => showPassword()}/>
+      </If>
+      <If test={type === 'date-picker' && clearDatePicker && value}>
+        <IoIosClose onClick={() => clearDatePicker()} />
       </If>
     </div>
   )

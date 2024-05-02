@@ -1,4 +1,4 @@
-.date__picker {
+.date__picker__content {
   .date__picker__darkbox {
     font-family: 'Roboto', sans-serif;
     position: absolute;
@@ -141,6 +141,63 @@
     opacity: 0.5;
   }
 
+  .date__picker__footer_action {
+    display: flex;
+  }
+
+  button.date__picker__footer_action__select {
+    margin-left: 10px;
+    color: #fff !important;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500 !important;
+  }
+
+  button.date__picker__footer_action__clean {
+    color: #208de4;
+    border: 1px solid #208de4 !important;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500 !important;
+  }
+
+  button.date__picker__footer_action__close {
+    color: #b20704 !important;
+    border: 1px solid #b20704 !important;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 500 !important;
+  }
+
+  .date__picker__hours {
+    padding: 0px 1rem;
+    margin-bottom: 9px;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-size: 0.9rem;
+    }
+
+    .date__picker__hours__start,
+    .date__picker__hours__end {
+      display: flex;
+
+      span {
+        margin-left: 3px;
+        margin-right: 3px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 30px;
+        padding: 0 2px 0px 6px;
+        border: 1px solid #888888;
+        border-radius: 5px;
+      }
+    }
+  }
+
   .zoomOut {
     animation: zoomOutDatePicker 0.3s;
   }
@@ -187,3 +244,4 @@
     }
   }
 }
+

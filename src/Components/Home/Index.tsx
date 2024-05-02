@@ -7,15 +7,14 @@ import LazyLoad from 'Components/Templates/LazyLoad';
 import DatePicker from './DatePicker';
 
 const Home = () => {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const [period, setPeriod] = React.useState<any>([null, null]);
+  const [periodRange, setPeriodRange] = React.useState<any>([null, null]);
 
   function onChangeDate(value: Array<Date> | null | Array<null>) {
     if (!value) {
-      setPeriod([null, null]);
+      setPeriodRange([null, null]);
     } else {
-      const arrayDate = value.map((value) => value?.toISOString())
-      setPeriod(arrayDate)
+      const arrayDate = value.map((value) => value ? value.toISOString() : null)
+      setPeriodRange(arrayDate)
     }
   }
 
@@ -24,23 +23,16 @@ const Home = () => {
       <Head title="Home" />
       <h1>Home</h1>
 
-      {period[0] + ' - '+ period[1]}
+      {periodRange[0] + ' - '+ periodRange[1]}
 
       <div>
-        <button
-          onClick={() => {
-            setIsOpen(true)
-          }}
-        >
-          Open
-        </button>
         <DatePicker
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          title="Período"
+          valueSelectedInput={periodRange}
+          title="Período Range"
           headerFormat='DD, MM dd'
           onChange={(value) => onChangeDate(value)}
-          range={true}
+          range
+          hours
         />
           {/* defaultValueInit={new Date(new Date().setHours(0, 0, 0))}
           defaultValueEnd={new Date(new Date().setHours(23, 59, 59))} */}

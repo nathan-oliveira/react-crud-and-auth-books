@@ -90,3 +90,23 @@ export function orderTableKeys(keys = [], head  = []) {
     return indexA - indexB;
   });
 }
+
+export function formatDateTimeBR(utcDateTimeString: string) {
+  const utcDate = new Date(utcDateTimeString);
+  utcDate.setUTCHours(utcDate.getUTCHours() - 3);
+  const dateUTCFormatted = utcDate.toISOString();
+  const [date, hour] = dateUTCFormatted
+    .replace('Z', '')
+    .replace('.000', '')
+    .split('T');
+
+  const day = date.split('-')[2]
+  const month = date.split('-')[1]
+  const year = date.split('-')[0]
+  return `${day}/${month}/${year} ${hour}`;
+}
+
+export function formatDateBR(utcDateString: string) {
+  const date = formatDateTimeBR(utcDateString)
+  return date.split(' ')[0];
+}

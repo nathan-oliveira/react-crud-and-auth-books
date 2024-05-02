@@ -44,6 +44,7 @@
   top: -0.5rem;
   font-size: 0.8rem;
   left: 1.2rem;
+  border-radius: 10px;
 }
 
 .input-text__select:focus ~ .input-label {
@@ -80,6 +81,7 @@ input.input-text-default:focus ~ .input-label {
   color: var(--clr-shadow-300) !important;
 }
 
+.input-wrapper__date_picker svg,
 .input-wrapper__password svg,
 .input-wrapper__select svg {
   float: inline-end;
@@ -87,6 +89,12 @@ input.input-text-default:focus ~ .input-label {
   margin-right: 10px;
   position: relative;
   cursor: pointer;
+}
+
+.input-wrapper__date_picker svg {
+  width: 22px !important;
+  height: 22px !important;
+  margin-top: 8px !important;
 }
 
 .input-wrapper__password input.input,
