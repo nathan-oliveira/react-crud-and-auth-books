@@ -20,6 +20,7 @@ const useFetch = (typeResult: string = 'json') => {
     try {
       setError(null);
       setLoading(true);
+
       response = await fetch(url, options);
       json = await response[typeResult]();
       if (response.ok === false) throw new Error(json.message);

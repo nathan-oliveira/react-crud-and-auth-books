@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './Main/App';
 import store from './Store';
 import reportWebVitals from './reportWebVitals';
+import './I18n'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

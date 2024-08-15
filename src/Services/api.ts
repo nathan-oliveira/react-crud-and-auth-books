@@ -1,3 +1,5 @@
+import { savedLanguage } from 'I18n'
+
 export const URL_API = 'http://localhost:3000/api'
 
 export function POST_SIGNUP(formData: any) {
@@ -6,7 +8,8 @@ export function POST_SIGNUP(formData: any) {
     options: {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -19,7 +22,8 @@ export function POST_LOGIN(formData: any) {
     options: {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -32,7 +36,8 @@ export function POST_LOGOUT(formData: any) {
     options: {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -46,6 +51,7 @@ export function VALIDATE_TOKEN(token: any) {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }
@@ -59,6 +65,7 @@ export function GET_PROFILE(token: any) {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }
@@ -71,6 +78,7 @@ export function DELETE_PHOTO_PROFILE({ token }: any) {
       method: 'DELETE',
       headers: {
         'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }
@@ -84,7 +92,8 @@ export function PUT_PROFILE(formData: any, token: any) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -98,7 +107,8 @@ export function PATCH_PROFILE(formData: any, token: any) {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -114,7 +124,8 @@ export function PATCH_PROFILE_PHOTO({ file, token }: any) {
     options: {
       method: 'PUT',
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
       body: formData,
     }
@@ -127,7 +138,8 @@ export function GET_PROFILE_PHOTO(token: any) {
     options: {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }

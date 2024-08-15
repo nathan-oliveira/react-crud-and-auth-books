@@ -1,3 +1,4 @@
+import { savedLanguage } from 'I18n'
 import { URL_API } from './api'
 
 export function GET_USERS(token: any) {
@@ -7,6 +8,7 @@ export function GET_USERS(token: any) {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }

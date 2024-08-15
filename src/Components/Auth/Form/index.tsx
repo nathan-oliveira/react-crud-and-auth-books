@@ -3,6 +3,7 @@ import './form.scss'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import useForm from 'Hooks/useForm'
 import { userSignUp, userLogin, verifyToken } from 'Store/user/auth'
@@ -16,6 +17,7 @@ import If from 'Components/Templates/Operator/If'
 
 
 const Form = ({ login, setLogin, setError }: any) => {
+  const { t } = useTranslation()
   const name = useForm()
   const username = useForm()
   const email = useForm({ type: 'email' })
@@ -32,7 +34,7 @@ const Form = ({ login, setLogin, setError }: any) => {
 
   async function handleSubmit(event: any) {
     event.preventDefault();
-    
+
     if (login) {
       if (username.validate() && password.validate()) {
         await dispatch(userLogin({ username: username.value, password: password.value }))
@@ -71,6 +73,7 @@ const Form = ({ login, setLogin, setError }: any) => {
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off" className="form">
+      { t('home.message') }
       <If test={!login}>
         <Row>
           <Grid cols="12">

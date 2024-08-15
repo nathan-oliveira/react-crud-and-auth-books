@@ -1,3 +1,4 @@
+import { savedLanguage } from 'I18n'
 import { URL_API } from './api'
 
 export function GET_BOOKS(token: any) {
@@ -7,6 +8,7 @@ export function GET_BOOKS(token: any) {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }
@@ -19,7 +21,8 @@ export function POST_BOOK({ formData, token }: any) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -33,7 +36,8 @@ export function PUT_BOOK({ id, formData, token }: any) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
       body: JSON.stringify(formData)
     }
@@ -47,6 +51,7 @@ export function GET_BOOK_ID({ id, token }: any) {
       method: 'GET',
       headers: {
         'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }
@@ -58,7 +63,8 @@ export function DELETE_BOOK({ id, token }: any) {
     options: {
       method: 'DELETE',
       headers: {
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token,
+        'X-Lang': savedLanguage
       },
     }
   }
