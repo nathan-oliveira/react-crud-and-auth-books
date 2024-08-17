@@ -1,6 +1,7 @@
 import React from 'react'
-
 import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+
 import { DELETE_PHOTO_PROFILE, GET_PROFILE_PHOTO } from 'Services/api'
 import { PATCH_PROFILE_PHOTO } from 'Services/api'
 import { updatePhoto } from 'Store/user/user'
@@ -20,6 +21,7 @@ const Profile = () => {
   const [successUpload, setSuccessUpload] = React.useState(false);
   const [successRemovedPhoto, setSuccessRemovedPhoto] = React.useState(false);
 
+  const { t } = useTranslation()
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -52,13 +54,13 @@ const Profile = () => {
 
   return (
     <section>
-      <Head title="Minha Conta" />
-      <Breadcrumb title="Minha Conta" path="Informações de Usuário" />
+      <Head title={t('profile.myAccount')} />
+      <Breadcrumb title={t('profile.myAccount')} path={t('profile.userInformation')} />
 
       <div className="content__page">
         <div className="menu__pages animeLeft">
-          <ImageDragDrop 
-            uploadFile={uploadPhoto} 
+          <ImageDragDrop
+            uploadFile={uploadPhoto}
             deleteFile={removePhoto}
             value={dataFile}
             success={successUpload}

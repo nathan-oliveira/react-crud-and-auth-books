@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { MdLogout } from "react-icons/md";
-
+import { useTranslation } from 'react-i18next'
 
 import useMedia from 'Hooks/useMedia'
 import { userLogout } from 'Store/user/auth'
@@ -24,6 +24,7 @@ const NavItem = ({ mobile, changeMenuMobile }: any) => {
   const { data } = useSelector((state: any) => state.user)
   const isMenuMobile = useMedia('(max-width: 800px)');
 
+  const { t } = useTranslation()
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -76,9 +77,9 @@ const NavItem = ({ mobile, changeMenuMobile }: any) => {
         <div className="navbar__item_content">
           { rowItems }
         </div>
-        
+
         <div className={`${!isMenuMobile ? 'navbar__item_profile_fixed' : 'navbar__item_profile_fixed_mobile'}`}>
-          <Link to="/profile" onClick={setMobile} 
+          <Link to="/profile" onClick={setMobile}
             className={`animeTop ${(!isMenuMobile) ? (menu ? 'navbar__item_profile_open' : 'navbar__item_profile_close') : 'navbar__item__profile_mobile'}`}>
             <Users />
             <If test={textProfile}>
@@ -94,7 +95,7 @@ const NavItem = ({ mobile, changeMenuMobile }: any) => {
           </If>
           <If test={isMenuMobile}>
             <div className="navbar__logout_mobile" onClick={() => logout()}>
-              Sair 
+              {t('template.logout')}
               <MdLogout />
             </div>
           </If>

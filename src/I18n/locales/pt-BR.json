@@ -1,5 +1,57 @@
 {
-  "home": {
-    "message": "Olá Mundo!"
+  "auth": {
+    "title": "Autenticação",
+    "register": "Cadastrar",
+    "toEnter": "Entrar",
+    "passwordsAreNotTheSame": "O campo \"Senha\" e \"Confirmar Senha\" não são iguais!",
+    "passwordsMinimumCharacter": "O campo \"Senha\" e \"Confirmar Senha\" deve conter no mínimo 6 caracteres!",
+    "form": {
+      "name": "Nome",
+      "email": "E-mail",
+      "username": "Usuário",
+      "password": "Senha",
+      "passwordConfirmation": "Confirmar Senha",
+      "entering": "Entrando...",
+      "registering": "Cadastrando...",
+      "loginAccount": "Fazer Login",
+      "createAccount": "Criar conta",
+      "createAccountNow": "Não possui uma conta? Criar Agora!",
+      "loginAccountNow": "Já possui uma conta? Entrar Agora!"
+    }
+  },
+  "profile": {
+    "newPasswordsAreNotTheSame": "O campo \"Nova Senha\" e \"Confirmar (Nova Senha)\" não são iguais!",
+    "newPasswordsMinimumCharacter": "O campo 'Nova Senha' e 'Confirmar (Nova Senha)' deve conter no mínimo 6 caracteres!",
+    "profileUpdated": "Perfil atualizado!",
+    "newPassword": "Nova Senha",
+    "newConfirmPassword": "Confirmar (Nova Senha)",
+    "updating": "Atualizando...",
+    "toUpdate": "Atualizar",
+    "myAccount": "Minha Conta",
+    "userInformation": "Informações de Usuário"
+  },
+  "book": {
+    "title": "Livros",
+    "datatable": {
+      "title": "Título",
+      "description": "Descrição",
+      "active": "Ativo"
+    },
+    "deletedRecord": "Registro apagado com sucesso!",
+    "close": "Fechar"
+  },
+  "helper": {
+    "system": "Sistema",
+    "noRecordsFound": "Nenhum registro encontrado!",
+    "createNow": "Criar agora!",
+    "pageNotFound": "Página não encontrada!"
+  },
+  "template": {
+    "logout": "Sair",
+    "linesPerPage": "Linhas por página:",
+    "search": "Pesquisar",
+    "orderBy": "Ordenação por",
+    "of": "de",
+    "noRecordsFound": "Nenhum registro encontrado."
   }
 }

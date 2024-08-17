@@ -1,8 +1,12 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+
 import useForm from 'Hooks/useForm'
 import useFetch from 'Hooks/useFetch'
 import { PUT_PROFILE } from 'Services/api'
+
+import { SnackbarMessage } from 'Components/Templates/SnackbarMessage';
 
 import Input from 'Components/Templates/Form/Input'
 import Row from 'Components/Templates/Form/Row'
@@ -18,6 +22,9 @@ const Form = () => {
   const password = useForm({ required: false });
   const password_confirmation = useForm({ required: false });
 
+  const [messageToSnackbar, setMessageToSnackbar] = React.useState('');
+
+  const { t } = useTranslation()
   const { loading, error, request }: any = useFetch();
   const { data } = useSelector((state: any) => state.user);
 
@@ -39,27 +46,29 @@ const Form = () => {
       }
 
       if (password.value) dataForm.password = password.value;
-      if (password_confirmation.value) dataForm.password_confirmation = password_confirmation.value;
+      if (password_confirmation.value) dataForm.passwordConfirmation = password_confirmation.value;
 
       if (password.value || password_confirmation.value) {
         if (password.value !== password_confirmation.value) {
           password.setError(true)
           password_confirmation.setError(true)
-          return alert("O campo 'Nova Senha' e 'Confirmar (Nova Senha)' não são iguais!")
+          setMessageToSnackbar(t('profile.newPasswordsAreNotTheSame'));
+          return;
         }
-  
+
         if (password.value.length < 5 || password_confirmation.value.length < 6) {
           password.setError(true)
           password_confirmation.setError(true)
-          return alert("O campo 'Nova Senha' e 'Confirmar (Nova Senha)' deve conter no mínimo 6 caracteres!")
+          setMessageToSnackbar(t('profile.newPasswordsMinimumCharacter'))
+          return;
         }
       }
 
       const { url, options } = PUT_PROFILE(dataForm, data.token)
       const { response } = await request(url, options)
 
-      if (response.ok) alert('Perfil atualizado!')
-      if (error) alert(error)
+      if (response.ok) setMessageToSnackbar(t('profile.profileUpdated'))
+      if (error) setMessageToSnackbar(error)
     }
   }
 
@@ -68,7 +77,7 @@ const Form = () => {
       <Row>
         <Grid cols="12">
           <Input
-            label="Nome"
+            label={t('auth.form.name')}
             type="text"
             name="name"
             max="255"
@@ -79,18 +88,7 @@ const Form = () => {
       <Row>
         <Grid cols="12">
           <Input
-            label="Usuário"
-            type="text"
-            name="username"
-            max="255"
-            {...username}
-          />
-        </Grid>
-      </Row>
-      <Row>
-        <Grid cols="12">
-          <Input
-            label="E-mail"
+            label={t('auth.form.email')}
             type="email"
             name="email"
             max="255"
@@ -99,9 +97,20 @@ const Form = () => {
         </Grid>
       </Row>
       <Row>
+        <Grid cols="12">
+          <Input
+            label={t('auth.form.username')}
+            type="text"
+            name="username"
+            max="255"
+            {...username}
+          />
+        </Grid>
+      </Row>
+      <Row>
         <Grid cols="6">
           <Input
-            label="Nova Senha"
+            label={t('profile.newPassword')}
             type="password"
             name="password"
             max="255"
@@ -110,7 +119,7 @@ const Form = () => {
         </Grid>
         <Grid cols="6">
           <Input
-            label="Confirmar (Nova Senha)"
+            label={t('profile.newConfirmPassword')}
             type="password"
             name="password_confirmation"
             max="255"
@@ -120,13 +129,19 @@ const Form = () => {
       </Row>
       <RowButton classRow="row__button_right">
         <If test={loading}>
-          <Button color="green" disabled>Atualizando...</Button>
+          <Button color="green" disabled>{t('profile.updating')}</Button>
         </If>
 
         <If test={!loading}>
-          <Button color="green">Atualizar</Button>
+          <Button color="green">{t('profile.toUpdate')}</Button>
         </If>
       </RowButton>
+
+      <SnackbarMessage
+        active={!!messageToSnackbar}
+        message={messageToSnackbar}
+        handlerClose={() => setMessageToSnackbar('')}
+      />
     </form>
   );
 }

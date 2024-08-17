@@ -1,5 +1,57 @@
 {
-  "home": {
-    "message": "Hello World!"
+  "auth": {
+    "title": "Authentication",
+    "register": "Register",
+    "toEnter": "To enter",
+    "passwordsAreNotTheSame": "The \"Password\" and \"Confirm Password\" fields are not the same!",
+    "passwordsMinimumCharacter": "The \"Password\" and \"Confirm Password\" fields must contain at least 6 characters!",
+    "form": {
+      "name": "Name",
+      "email": "E-mail",
+      "username": "Username",
+      "password": "Password",
+      "password_confirmation": "Confirm Password",
+      "entering": "Entering...",
+      "registering": "Registering...",
+      "loginAccount": "Login Account",
+      "createAccount": "Create account",
+      "createAccountNow": "Don't have an account? Create Now!",
+      "loginAccountNow": "Already have an account? Sign in now!"
+    }
+  },
+  "profile": {
+    "newPasswordsAreNotTheSame": "The \"New Password\" and \"Confirm (New Password)\" fields are not the same!",
+    "newPasswordsMinimumCharacter": "The \"New Password\" and \"Confirm (New Password)\" fields must contain at least 6 characters!",
+    "profileUpdated": "Profile updated!",
+    "newPassword": "New password",
+    "newConfirmPassword": "Confirm (New password)",
+    "updating": "Updating...",
+    "toUpdate": "To update",
+    "myAccount": "My Account",
+    "userInformation": "User Information"
+  },
+  "book": {
+    "title": "Books",
+    "datatable": {
+      "title": "Title",
+      "description": "Description",
+      "active": "Active"
+    },
+    "deletedRecord": "Record deleted successfully!",
+    "close": "Close"
+  },
+  "helper": {
+    "system": "System",
+    "noRecordsFound": "No records found!",
+    "createNow": "Create now!",
+    "pageNotFound": "Page not found!"
+  },
+  "template": {
+    "logout": "Logout",
+    "linesPerPage": "Lines per page:",
+    "search": "Search",
+    "orderBy": "Order by",
+    "of": "of",
+    "noRecordsFound": "No records found!"
   }
 }

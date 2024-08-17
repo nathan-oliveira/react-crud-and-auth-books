@@ -1,6 +1,8 @@
 import React from 'react'
 import './table.scss'
 
+import { useTranslation } from 'react-i18next'
+
 import Head from './Head'
 import Row from './Row'
 import RowCard from './RowCard'
@@ -12,6 +14,7 @@ import useMedia from 'Hooks/useMedia'
 export const TableWrapper = ({ children, orderByItems, orderBy, setOrderBy, changeActive }: any) => {
   const [active, setActive] = React.useState(true);
   const mobile = useMedia('(max-width: 800px)');
+  const { t } = useTranslation();
 
   function handlerActive(value: boolean) {
     changeActive(value);
@@ -28,8 +31,8 @@ export const TableWrapper = ({ children, orderByItems, orderBy, setOrderBy, chan
         <div className="animeLeft table__filters">
           <If test={mobile}>
             <div className="table__card_filters_order_mobile">
-              <span>Ordenação por&nbsp;</span>
-             
+              <span>{t('template.orderBy')}&nbsp;</span>
+
               <select
                 id="orderValue"
                 name="orderValue"
@@ -42,8 +45,8 @@ export const TableWrapper = ({ children, orderByItems, orderBy, setOrderBy, chan
                   <option value={item.key} key={item.key}>{item.title}</option>
                 ))}
               </select>
-              <span>&nbsp; de &nbsp;</span>
-             
+              <span>&nbsp; {t('template.of')} &nbsp;</span>
+
               <select
                 id="orderKey"
                 name="orderKey"
@@ -68,7 +71,7 @@ export const TableWrapper = ({ children, orderByItems, orderBy, setOrderBy, chan
 
 const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrderBy, orderBy, isExpand }: any) => {
   const mobile = useMedia('(max-width: 800px)');
-
+  const { t } = useTranslation();
   const keys = Object.keys(dataTable[0] || [])
   const headValue = head.reduce((acc: any, current: any) => {
     acc[current.key] = current.title;
@@ -79,19 +82,25 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
     <React.Fragment>
       <If test={!mobile}>
         <table className={`table ${!loading && 'listing'}`}>
-          <Head keys={keys} head={head} setOrderBy={setOrderBy} orderBy={orderBy} />
+          <Head
+            keys={keys}
+            head={head}
+            setOrderBy={setOrderBy}
+            orderBy={orderBy}
+          />
+
           <tbody className={'table__tbody'}>
             {(keys.length > 0) ? (
               dataTable.map(
                 (record: any, index: number) => (
-                  <Row 
-                    key={record.id} 
-                    record={record} 
-                    deletePost={deletePost} 
+                  <Row
+                    key={record.id}
+                    record={record}
+                    deletePost={deletePost}
                     getPost={getPost}
                     head={head}
-                    tableHead={headValue} 
-                    isExpand={!!isExpand} 
+                    tableHead={headValue}
+                    isExpand={!!isExpand}
                     isPair={(index + 1) % 2 === 0}
                   >
                     {children}
@@ -100,7 +109,7 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
               )
             ) : (
               <tr>
-                <td className="table__notItem">Nenhum registro encontrado.</td>
+                <td className="table__notItem">{t('template.of')}</td>
               </tr>
             )}
           </tbody>
@@ -112,14 +121,14 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
           {(keys.length > 0) ? (
             dataTable.map(
               (record: any, index: number) => (
-                <RowCard 
-                  key={record.id} 
-                  record={record} 
-                  deletePost={deletePost} 
+                <RowCard
+                  key={record.id}
+                  record={record}
+                  deletePost={deletePost}
                   getPost={getPost}
                   head={head}
-                  tableHead={headValue} 
-                  isExpand={!!isExpand} 
+                  tableHead={headValue}
+                  isExpand={!!isExpand}
                   isPair={(index + 1) % 2 === 0}
                 >
                   {children}
@@ -128,7 +137,7 @@ const Table = ({ children, dataTable, loading, deletePost, getPost, head, setOrd
             )
           ) : (
             <tr>
-              <td className="table__notItem">Nenhum registro encontrado.</td>
+              <td className="table__notItem">{t('template.noRecordsFound')}</td>
             </tr>
           )}
         </div>

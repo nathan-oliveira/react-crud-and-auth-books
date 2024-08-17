@@ -32,8 +32,8 @@ const Head = ({ keys, head, setOrderBy, orderBy }: any) => {
               <th key={key} className={`table__col${indexRow}`} style={{ width: `${filterHead.width ?? (100 / tableHead.length)}%` }}>
                 <div className="table__thead_icons">
                   <span className="table__thead_text" onClick={() => sortBy(key)}>{filterHead.title}</span>
-                  {orderBy.order && (orderBy.order === 'ASC' ? 
-                    <TiArrowDown onClick={() => sortBy(key)} className="table__thead_icon_arrow" /> : 
+                  {orderBy.order && (orderBy.order === 'ASC' ?
+                    <TiArrowDown onClick={() => sortBy(key)} className="table__thead_icon_arrow" /> :
                     <TiArrowUp onClick={() => sortBy(key)} className="table__thead_icon_arrow" />
                   )}
                 </div>

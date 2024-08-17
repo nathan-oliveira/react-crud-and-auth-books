@@ -1,11 +1,11 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+
 import Button from 'Components/Templates/Form/Button';
 import RowButton from 'Components/Templates/Form/Row';
-import React from 'react'
 
 const BookExpand = ({ record, close }: any) => {
-  // React.useEffect(() => {
-  //   console.log(record)
-  // }, []);
+  const { t } = useTranslation();
 
   if (!record) return null;
   return (
@@ -15,7 +15,7 @@ const BookExpand = ({ record, close }: any) => {
 
         <RowButton classRow="row__button_right">
           <Button type="button" classBtn="btn__close" onClick={() => close()}>
-            <span>Fechar</span>
+            <span>{t('book.close')}</span>
           </Button>
         </RowButton>
       </form>

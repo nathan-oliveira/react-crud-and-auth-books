@@ -7,6 +7,8 @@ import { useSearch } from 'Hooks/useQuery';
 import { GET_BOOKS, DELETE_BOOK } from 'Services/api'
 import { openModal, closeModal } from 'Store/ui';
 
+import { useTranslation } from 'react-i18next'
+
 import Error from 'Components/Helper/Error';
 import Loading from 'Components/Helper/Loading';
 import NoRegistry from 'Components/Helper/NoRegistry';
@@ -28,14 +30,15 @@ const Listing = () => {
   const [active, setActive] = React.useState(true)
   const [messageToSnackbar, setMessageToSnackbar] = React.useState('');
 
+  const { t } = useTranslation();
   const querySearch = useSearch();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const headerTable = [
-    { key: 'title', title: 'Título' },
-    { key: 'description', title: 'Descrição' },
-    { key: 'active', title: 'Ativo' },
+    { key: 'title', title: t('book.datatable.title') },
+    { key: 'description', title: t('book.datatable.description') },
+    { key: 'active', title: t('book.datatable.active') },
     { key: 'actions', title: '', width: 19 },
   ];
 
@@ -62,10 +65,10 @@ const Listing = () => {
 
     if (response.ok) {
       dispatch(closeModal())
-      setMessageToSnackbar('Registro apagado com sucesso!');
+      setMessageToSnackbar(t('book.deletedRecord'));
     }
   }
-  
+
   async function getBook(id: string) {
     navigate(`/books/edit/${id}`)
   }
@@ -78,8 +81,8 @@ const Listing = () => {
         <div className="content__body">
           <ModalDelete handlerSubmit={deleteBook} />
           <TableWrapper
-            changeActive={(value: boolean) => setActive(value)} 
-            setOrderBy={setOrderBy} 
+            changeActive={(value: boolean) => setActive(value)}
+            setOrderBy={setOrderBy}
             orderBy={orderBy}
             orderByItems={headerTable}
           >
@@ -96,9 +99,9 @@ const Listing = () => {
               <BookExpand slot="form" />
               <BookTitleTag slot="title" />
               <ActiveSlot slot="active" />
-              <BookActions slot="actions" 
-                deleteBook={(id: string) => dispatch(openModal(id))} 
-                getBook={getBook} 
+              <BookActions slot="actions"
+                deleteBook={(id: string) => dispatch(openModal(id))}
+                getBook={getBook}
               />
             </Table>
 
@@ -115,9 +118,9 @@ const Listing = () => {
           </TableWrapper>
 
           <SnackbarMessage
-            active={!!messageToSnackbar} 
-            message={messageToSnackbar} 
-            handlerClose={() => setMessageToSnackbar('')} 
+            active={!!messageToSnackbar}
+            message={messageToSnackbar}
+            handlerClose={() => setMessageToSnackbar('')}
           />
         </div>
       ) : (

@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+
 import useForm from 'Hooks/useForm'
 import useFetch from 'Hooks/useFetch'
 
@@ -17,6 +19,7 @@ const FormModal = () => {
   const { loading, error, request } = useFetch();
   const { data } = useSelector((state: any) => state.user)
 
+  const { t } = useTranslation()
   const dispatch = useDispatch()
 
   async function handleSubmit(event: any) {
@@ -25,7 +28,7 @@ const FormModal = () => {
     if (file.validate()) {
       const { url, options } = PATCH_PROFILE_PHOTO({ file: file.value, token: data.token })
       const { response }: any = await request(url, options)
-  
+
       if (response.ok) dispatch(updatePhoto({ file: file.value ?? null }))
       if (error) alert(error)
     }
@@ -43,11 +46,11 @@ const FormModal = () => {
       />
       <RowButton>
         <If test={loading}>
-          <Button disabled>Alterando...</Button>
+          <Button disabled>{t('profile.updating')}</Button>
         </If>
 
         <If test={!loading}>
-          <Button>Alterar</Button>
+          <Button>{t('profile.toUpdate')}</Button>
         </If>
       </RowButton>
     </form>

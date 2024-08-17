@@ -3,6 +3,7 @@ import './pagination.scss'
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useLimit, usePage, useSearch } from 'Hooks/useQuery';
+import { useTranslation } from 'react-i18next'
 
 import { TbChevronLeftPipe } from "react-icons/tb";
 import { TbChevronRightPipe } from "react-icons/tb";
@@ -19,6 +20,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
   const [intervalPage, setIntervalPage] = React.useState('');
   const mobile = useMedia('(max-width: 800px)');
 
+  const { t } = useTranslation()
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -26,10 +28,11 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
   const queryPage = usePage();
   const queryLimit = useLimit();
 
-  const  calculatePageInterval = React.useCallback((currentPage: number, totalRecords: number, limitPerPage: number) => {
-    const start = (currentPage - 1) * limitPerPage + 1;
+  const calculatePageInterval = React.useCallback((currentPage: number, totalRecords: number, limitPerPage: number) => {
+    let start = (currentPage - 1) * limitPerPage + 1;
     let end = currentPage * limitPerPage;
     if (end > totalRecords) end = totalRecords;
+    if (totalRecords === 0 && end === 0) start = 0;
     setTimeout(() => setIntervalPage(`${start} - ${end} de ${totalRecords}`), 200);
   }, []);
 
@@ -86,7 +89,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
       setLimit(limitValue)
       calculatePageInterval(page, total, limit)
     }
-  
+
     setParams()
   }, [queryPage, queryLimit, optionsLimit, limits, total, querySearch, navigate, pathname, setPage, setLimit]);
 
@@ -111,7 +114,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
             onClick={() => {
               incPage(page);
               calculatePageInterval(page, total, limit);
-            }} 
+            }}
           >
             <TbChevronRightPipe className="pagination__icons" />
           </li>
@@ -122,7 +125,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
         <ul>
           {limit && (
             <div className="table__pagination_limit">
-              <span>Linhas por página:</span>
+              <span>{t('template.linesPerPage')}</span>
               <select
                 id="limit"
                 name="limit"
@@ -141,10 +144,10 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
       <If test={!oldPaginate && !mobile}>
         <ul className="total">{intervalPage}</ul>
       </If>
-     
+
       <If test={!oldPaginate && !mobile}>
         <ul className="pagination pagination__new">
-          <li className="pagination__new__pad" 
+          <li className="pagination__new__pad"
             onClick={() => {
               changePage(1);
               calculatePageInterval(page, total, limit);
@@ -153,7 +156,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
             <TbChevronLeftPipe className="pagination__icons" />
           </li>
 
-          <li className="pagination__new__pad" 
+          <li className="pagination__new__pad"
             onClick={() => {
               descPage(page);
               calculatePageInterval(page, total, limit);
@@ -162,7 +165,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
             <TbChevronLeft className="pagination__icons" />
           </li>
 
-          <li className="pagination__new__pad" 
+          <li className="pagination__new__pad"
             onClick={() => {
               incPage(page);
               calculatePageInterval(page, total, limit);
@@ -171,7 +174,7 @@ const Pagination = ({ data, setPage, page, setLimit, limit, limits, total, searc
             <TbChevronRight className="pagination__icons" />
           </li>
 
-          <li 
+          <li
             onClick={() => {
               changePage(qtdPage);
               calculatePageInterval(page, total, limit);

@@ -2,6 +2,7 @@ import React from 'react'
 import './books.scss'
 
 import { Routes, Route } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 import HeaderMenu from 'Components/Templates/HeaderMenu'
 import Head from 'Components/Helper/Head'
@@ -11,9 +12,11 @@ import Listing from './Listing'
 import Form from './Form'
 
 const Books = () => {
+  const { t } = useTranslation()
+
   return (
     <section>
-      <Head title="Livros" />
+      <Head title={t('book.title')} />
 
       <div className="content__page">
         <HeaderMenu path="/books" />
